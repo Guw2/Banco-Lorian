@@ -1,13 +1,19 @@
-package com.lorian.lorianBank.Customer;
+package com.lorian.lorianBank.Cliente;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
+import com.lorian.lorianBank.Cartao.Cartao;
+import com.lorian.lorianBank.Conta.Conta;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Cliente {
@@ -28,10 +34,17 @@ public class Cliente {
 	@Column
 	private String email;
 	
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+	private List<Conta> contas;
+	
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+	private List<Cartao> cartoes;
+	
 	public Cliente() {
 	}
 	
-	public Cliente(UUID id, String nome, String cpf, Integer idade, String endereco, String telefone, String email) {
+	public Cliente(UUID id, String nome, String cpf, Integer idade, String endereco, String telefone, String email,
+			List<Conta> contas, List<Cartao> cartoes) {
 		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
@@ -39,7 +52,11 @@ public class Cliente {
 		this.endereco = endereco;
 		this.telefone = telefone;
 		this.email = email;
+		this.contas = contas;
+		this.cartoes = cartoes;
 	}
+
+
 
 	public UUID getId() {
 		return id;
@@ -97,9 +114,39 @@ public class Cliente {
 		this.email = email;
 	}
 
+	public List<Conta> getConta() {
+		return contas;
+	}
+
+	public void setConta(List<Conta> contas) {
+		this.contas = contas;
+	}
+
+	public List<Conta> getContas() {
+		return contas;
+	}
+
+	public void setContas(List<Conta> contas) {
+		this.contas = contas;
+	}
+
+	public List<Cartao> getCartoes() {
+		return cartoes;
+	}
+
+	public void setCartoes(List<Cartao> cartoes) {
+		this.cartoes = cartoes;
+	}
+
+	@Override
+	public String toString() {
+		return "Cliente [id=" + id + ", nome=" + nome + ", cpf=" + cpf + ", idade=" + idade + ", endereco=" + endereco
+				+ ", telefone=" + telefone + ", email=" + email + ", contas=" + contas + ", cartoes=" + cartoes + "]";
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(cpf, email, endereco, id, idade, nome, telefone);
+		return Objects.hash(cartoes, contas, cpf, email, endereco, id, idade, nome, telefone);
 	}
 
 	@Override
@@ -111,16 +158,11 @@ public class Cliente {
 		if (getClass() != obj.getClass())
 			return false;
 		Cliente other = (Cliente) obj;
-		return Objects.equals(cpf, other.cpf) && Objects.equals(email, other.email)
+		return Objects.equals(cartoes, other.cartoes) && Objects.equals(contas, other.contas)
+				&& Objects.equals(cpf, other.cpf) && Objects.equals(email, other.email)
 				&& Objects.equals(endereco, other.endereco) && Objects.equals(id, other.id)
 				&& Objects.equals(idade, other.idade) && Objects.equals(nome, other.nome)
 				&& Objects.equals(telefone, other.telefone);
-	}
-
-	@Override
-	public String toString() {
-		return "Cliente [id=" + id + ", nome=" + nome + ", cpf=" + cpf + ", idade=" + idade + ", endereco=" + endereco
-				+ ", telefone=" + telefone + ", email=" + email + "]";
 	}
 
 }
