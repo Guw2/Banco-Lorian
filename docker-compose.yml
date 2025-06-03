@@ -1,0 +1,15 @@
+services:
+  mysql:
+   image: mysql:8.0
+   container_name: lorian_bank_database_container
+   restart: unless-stopped
+   environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: lorian_bank
+   ports:
+      - "3306:3306"
+   volumes:
+      - lorian_bank_data:/var/lib/mysql
+
+volumes:
+   lorian_bank_data:
