@@ -12,6 +12,8 @@ import com.lorian.lorianBank.Transacao.Transacao;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -32,9 +34,10 @@ public class Conta {
 	@Column
 	private Double saldo;
 	@Column
+	@Enumerated(EnumType.STRING)
 	private TipoConta tipo;
 	@Column
-	private Instant data_de_abertura = Instant.now();
+	private Instant data_de_abertura;
 	
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")

@@ -3,12 +3,12 @@ package com.lorian.lorianBank.Cliente;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import java.util.List;
+import java.util.Optional;
 
 
 public interface ClienteRepository extends JpaRepository<Cliente, UUID>{
 
-	Cliente findByEmail(String email);
+	Optional<Cliente> findByEmail(String email);
 	void deleteByEmail(String email);
 	
 }

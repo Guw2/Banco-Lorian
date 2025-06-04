@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.lorian.lorianBank.Cliente.DTOs.ClienteGetDto;
+import com.lorian.lorianBank.Cliente.DTOs.ClienteGetDTO;
 import com.lorian.lorianBank.Cliente.DTOs.ClientePostDTO;
 
 import jakarta.transaction.Transactional;
@@ -18,15 +18,16 @@ public class ClienteService {
 		this.repo = repo;
 	}
 	
-	public List<ClienteGetDto> getAllClientes(){
+	public List<ClienteGetDTO> getAllClientes(){
 		return repo.findAll().stream().map(x -> ClienteMapper.clienteToGetDto(x)).toList();
 	}
 	
-	public ClienteGetDto getClienteByEmail(String email) {
-		return ClienteMapper.clienteToGetDto(repo.findByEmail(email));
+	public ClienteGetDTO getClienteByEmail(String email) {
+		return ClienteMapper.clienteToGetDto(repo.findByEmail(email)
+				.orElseThrow(() -> new RuntimeException("Email não encontrado.")));
 	}
 	
-	public ClienteGetDto insertCliente(ClientePostDTO dto) {
+	public ClienteGetDTO insertCliente(ClientePostDTO dto) {
 		Cliente cliente = ClienteMapper.postDtoToCliente(dto);
 		return ClienteMapper.clienteToGetDto(repo.save(cliente));
 	}

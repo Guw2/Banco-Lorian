@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lorian.lorianBank.Cliente.DTOs.ClienteGetDto;
+import com.lorian.lorianBank.Cliente.DTOs.ClienteGetDTO;
 import com.lorian.lorianBank.Cliente.DTOs.ClientePostDTO;
 
 @RestController
@@ -26,18 +26,18 @@ public class ClienteController {
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<ClienteGetDto>> getAll(){
-		return new ResponseEntity<List<ClienteGetDto>>(service.getAllClientes(), HttpStatus.OK);
+	public ResponseEntity<List<ClienteGetDTO>> getAll(){
+		return new ResponseEntity<List<ClienteGetDTO>>(service.getAllClientes(), HttpStatus.OK);
 	}
 	
 	@GetMapping("/{email}")
-	public ResponseEntity<ClienteGetDto> getByEmail(@PathVariable String email){
-		return new ResponseEntity<ClienteGetDto>(service.getClienteByEmail(email), HttpStatus.OK);
+	public ResponseEntity<ClienteGetDTO> getByEmail(@PathVariable String email){
+		return new ResponseEntity<ClienteGetDTO>(service.getClienteByEmail(email), HttpStatus.OK);
 	}
 	
 	@PostMapping
-	public ResponseEntity<ClienteGetDto> insert(@RequestBody ClientePostDTO dto){
-		return new ResponseEntity<ClienteGetDto>(service.insertCliente(dto), HttpStatus.CREATED);
+	public ResponseEntity<ClienteGetDTO> insert(@RequestBody ClientePostDTO dto){
+		return new ResponseEntity<ClienteGetDTO>(service.insertCliente(dto), HttpStatus.CREATED);
 	}
 	
 	@DeleteMapping("/{email}")

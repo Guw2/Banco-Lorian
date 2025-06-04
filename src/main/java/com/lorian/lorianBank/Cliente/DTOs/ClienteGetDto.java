@@ -1,6 +1,6 @@
 package com.lorian.lorianBank.Cliente.DTOs;
 
-public record ClienteGetDto(
+public record ClienteGetDTO(
 		String nome,
 		Integer idade,
 		String telefone,
