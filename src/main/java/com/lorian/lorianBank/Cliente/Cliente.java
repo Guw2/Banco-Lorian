@@ -56,8 +56,6 @@ public class Cliente {
 		this.cartoes = cartoes;
 	}
 
-
-
 	public UUID getId() {
 		return id;
 	}
