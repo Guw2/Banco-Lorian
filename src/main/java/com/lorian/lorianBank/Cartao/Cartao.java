@@ -1,4 +1,4 @@
-package com.lorian.lorianBank.Cartao;
+package com.lorian.lorianBank.cartao;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -6,10 +6,13 @@ import java.time.ZoneOffset;
 import java.util.Objects;
 import java.util.UUID;
 
-import com.lorian.lorianBank.Cliente.Cliente;
-import com.lorian.lorianBank.Conta.Conta;
+import com.lorian.lorianBank.cliente.Cliente;
+import com.lorian.lorianBank.conta.Conta;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -21,10 +24,17 @@ public class Cartao {
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private UUID id;
+	@Column
 	private String numero;
+	@Column
 	private Integer cvv;
-	private Instant validade = LocalDateTime.now().plusYears(5).toInstant(ZoneOffset.of("-03:00"));
+	//LocalDateTime.now().plusYears(5).toInstant(ZoneOffset.of("-03:00"))
+	@Column
+	private Instant validade;
+	@Column
 	private Double limite;
+	@Column
+	@Enumerated(EnumType.STRING)
 	private BandeiraCartao bandeira;
 	
 	@ManyToOne

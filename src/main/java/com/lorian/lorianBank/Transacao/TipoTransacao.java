@@ -1,4 +1,4 @@
-package com.lorian.lorianBank.Transacao;
+package com.lorian.lorianBank.transacao;
 
 public enum TipoTransacao {
 

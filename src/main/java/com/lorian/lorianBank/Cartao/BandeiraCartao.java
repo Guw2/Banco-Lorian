@@ -1,4 +1,4 @@
-package com.lorian.lorianBank.Cartao;
+package com.lorian.lorianBank.cartao;
 
 public enum BandeiraCartao {
 	

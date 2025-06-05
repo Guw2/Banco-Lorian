@@ -1,9 +1,9 @@
-package com.lorian.lorianBank.Cliente;
+package com.lorian.lorianBank.cliente;
 
 import org.springframework.stereotype.Component;
 
-import com.lorian.lorianBank.Cliente.DTOs.ClienteGetDTO;
-import com.lorian.lorianBank.Cliente.DTOs.ClientePostDTO;
+import com.lorian.lorianBank.cliente.DTOs.ClienteGetDTO;
+import com.lorian.lorianBank.cliente.DTOs.ClientePostDTO;
 
 @Component
 public class ClienteMapper {

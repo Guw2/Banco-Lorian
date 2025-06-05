@@ -1,4 +1,4 @@
-package com.lorian.lorianBank.Cliente;
+package com.lorian.lorianBank.cliente;
 
 import java.util.UUID;
 

@@ -1,11 +1,14 @@
-package com.lorian.lorianBank.Conta;
+package com.lorian.lorianBank.conta;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.lorian.lorianBank.Conta.DTOs.ContaGetDTO;
-import com.lorian.lorianBank.Conta.DTOs.ContaPostDTO;
+import com.lorian.lorianBank.conta.DTOs.ContaGetDTO;
+import com.lorian.lorianBank.conta.DTOs.ContaPostDTO;
+import com.lorian.lorianBank.exceptions.custom.NumeroNotFoundException;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class ContaService {
@@ -24,11 +27,19 @@ public class ContaService {
 	
 	public ContaGetDTO getContaByNumero(Long numero) {
 		return ContaMapper.contaToGetDTO(repo.findByNumero(numero)
-				.orElseThrow(() -> new RuntimeException("Conta com número " + numero + " não foi registrada.")));
+				.orElseThrow(() -> new NumeroNotFoundException("Conta com número " + numero + " não foi registrada.")));
 	}
 		
 	public ContaGetDTO insertConta(ContaPostDTO dto) {
 		return ContaMapper.contaToGetDTO(repo.save(generateConta.generate(dto.tipo(), dto.cliente_id())));
+	}
+	
+	@Transactional
+	public void deleteContaByNumero(Long numero) {
+		if(repo.findByNumero(numero).isPresent())
+			repo.deleteByNumero(numero);
+		else
+			throw new NumeroNotFoundException("Conta com número " + numero + " não foi registrada.");
 	}
 	
 }

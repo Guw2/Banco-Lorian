@@ -1,4 +1,4 @@
-package com.lorian.lorianBank.Cliente.DTOs;
+package com.lorian.lorianBank.cliente.DTOs;
 
 public record ClientePostDTO(
 		String nome,

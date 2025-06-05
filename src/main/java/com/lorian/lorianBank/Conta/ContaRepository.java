@@ -1,4 +1,4 @@
-package com.lorian.lorianBank.Conta;
+package com.lorian.lorianBank.conta;
 
 import java.util.UUID;
 
@@ -9,5 +9,5 @@ import java.util.Optional;
 public interface ContaRepository extends JpaRepository<Conta, UUID>{
 
 	Optional<Conta> findByNumero(Long numero);
-	
+	void deleteByNumero(Long numero);
 }

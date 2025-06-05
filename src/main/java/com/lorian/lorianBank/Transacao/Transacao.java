@@ -1,10 +1,10 @@
-package com.lorian.lorianBank.Transacao;
+package com.lorian.lorianBank.transacao;
 
 import java.time.Instant;
 import java.util.Objects;
 import java.util.UUID;
 
-import com.lorian.lorianBank.Conta.Conta;
+import com.lorian.lorianBank.conta.Conta;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

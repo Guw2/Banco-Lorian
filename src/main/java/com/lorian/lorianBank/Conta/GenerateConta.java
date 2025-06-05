@@ -1,4 +1,4 @@
-package com.lorian.lorianBank.Conta;
+package com.lorian.lorianBank.conta;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -6,7 +6,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import org.springframework.stereotype.Component;
 
-import com.lorian.lorianBank.Cliente.ClienteRepository;
+import com.lorian.lorianBank.cliente.ClienteRepository;
+import com.lorian.lorianBank.exceptions.custom.IdNotFoundException;
 
 @Component
 public class GenerateConta {
@@ -26,7 +27,7 @@ public class GenerateConta {
 		conta.setSaldo(0D);
 		conta.setTipo(tipo);
 		conta.setData_de_abertura(Instant.now());
-		conta.setCliente(cliente_repo.findById(cliente_id).get());
+		conta.setCliente(cliente_repo.findById(cliente_id).orElseThrow(() -> new IdNotFoundException("Id não existente.")));
 		return conta;
 	}
 	

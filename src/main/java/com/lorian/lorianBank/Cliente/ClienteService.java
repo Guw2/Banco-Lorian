@@ -1,11 +1,13 @@
-package com.lorian.lorianBank.Cliente;
+package com.lorian.lorianBank.cliente;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.lorian.lorianBank.Cliente.DTOs.ClienteGetDTO;
-import com.lorian.lorianBank.Cliente.DTOs.ClientePostDTO;
+import com.lorian.lorianBank.cliente.DTOs.ClienteGetDTO;
+import com.lorian.lorianBank.cliente.DTOs.ClientePostDTO;
+import com.lorian.lorianBank.exceptions.custom.EmailNotFoundException;
+import com.lorian.lorianBank.exceptions.custom.IdNotFoundException;
 
 import jakarta.transaction.Transactional;
 
@@ -24,7 +26,7 @@ public class ClienteService {
 	
 	public ClienteGetDTO getClienteByEmail(String email) {
 		return ClienteMapper.clienteToGetDto(repo.findByEmail(email)
-				.orElseThrow(() -> new RuntimeException("Email não encontrado.")));
+				.orElseThrow(() -> new EmailNotFoundException("Este e-mail não foi cadastrado.")));
 	}
 	
 	public ClienteGetDTO insertCliente(ClientePostDTO dto) {
@@ -34,6 +36,9 @@ public class ClienteService {
 	
 	@Transactional
 	public void deleteClienteByEmail(String email) {
-		repo.deleteByEmail(email);
+		if(repo.findByEmail(email).isPresent())
+			repo.deleteByEmail(email);
+		else
+			throw new EmailNotFoundException("Este e-mail não foi cadastrado.");
 	}
 }

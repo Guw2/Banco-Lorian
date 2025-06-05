@@ -1,13 +1,13 @@
-package com.lorian.lorianBank.Conta;
+package com.lorian.lorianBank.conta;
 
 import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
-import com.lorian.lorianBank.Cartao.Cartao;
-import com.lorian.lorianBank.Cliente.Cliente;
-import com.lorian.lorianBank.Transacao.Transacao;
+import com.lorian.lorianBank.cartao.Cartao;
+import com.lorian.lorianBank.cliente.Cliente;
+import com.lorian.lorianBank.transacao.Transacao;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

@@ -1,4 +1,4 @@
-package com.lorian.lorianBank.Cliente;
+package com.lorian.lorianBank.cliente;
 
 import java.util.List;
 
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lorian.lorianBank.Cliente.DTOs.ClienteGetDTO;
-import com.lorian.lorianBank.Cliente.DTOs.ClientePostDTO;
+import com.lorian.lorianBank.cliente.DTOs.ClienteGetDTO;
+import com.lorian.lorianBank.cliente.DTOs.ClientePostDTO;
 
 @RestController
 @RequestMapping("/clientes")

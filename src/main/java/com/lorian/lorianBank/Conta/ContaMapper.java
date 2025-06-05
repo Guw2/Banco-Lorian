@@ -1,9 +1,9 @@
-package com.lorian.lorianBank.Conta;
+package com.lorian.lorianBank.conta;
 
 import org.springframework.stereotype.Component;
 
-import com.lorian.lorianBank.Cliente.ClienteMapper;
-import com.lorian.lorianBank.Conta.DTOs.ContaGetDTO;
+import com.lorian.lorianBank.cliente.ClienteMapper;
+import com.lorian.lorianBank.conta.DTOs.ContaGetDTO;
 
 @Component
 public class ContaMapper {
@@ -14,7 +14,6 @@ public class ContaMapper {
 				conta.getAgencia(),
 				conta.getSaldo(),
 				conta.getTipo(),
-				conta.getData_de_abertura(),
 				ClienteMapper.clienteToGetDto(conta.getCliente()));
 	}
 	
