@@ -28,7 +28,6 @@ public class Cartao {
 	private String numero;
 	@Column
 	private Integer cvv;
-	//LocalDateTime.now().plusYears(5).toInstant(ZoneOffset.of("-03:00"))
 	@Column
 	private Instant validade;
 	@Column
