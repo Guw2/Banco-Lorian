@@ -23,7 +23,7 @@ public class Transacao {
 	@Column
 	private Double valor;
 	@Column
-	private Instant data = Instant.now();
+	private Instant data;
 	@Column
 	private TipoTransacao tipo;
 	@Column
@@ -32,17 +32,26 @@ public class Transacao {
 	@ManyToOne
 	@JoinColumn(name = "conta_id")
 	private Conta conta;
+	
+	@ManyToOne
+	@JoinColumn(name = "conta_destino_id")
+	private Conta conta_destino;
+	
 
 	public Transacao() {}
 
-	public Transacao(UUID id, Double valor, Instant data, TipoTransacao tipo, String descricao, Conta conta) {
+
+	public Transacao(UUID id, Double valor, Instant data, TipoTransacao tipo, String descricao, Conta conta,
+			Conta conta_destino) {
 		this.id = id;
 		this.valor = valor;
 		this.data = data;
 		this.tipo = tipo;
 		this.descricao = descricao;
 		this.conta = conta;
+		this.conta_destino = conta_destino;
 	}
+
 
 	public UUID getId() {
 		return id;
@@ -91,16 +100,24 @@ public class Transacao {
 	public void setConta(Conta conta) {
 		this.conta = conta;
 	}
+	
+	public Conta getConta_destino() {
+		return conta_destino;
+	}
+
+	public void setConta_destino(Conta conta_destino) {
+		this.conta_destino = conta_destino;
+	}
 
 	@Override
 	public String toString() {
 		return "Transacao [id=" + id + ", valor=" + valor + ", data=" + data + ", tipo=" + tipo + ", descricao="
-				+ descricao + ", conta=" + conta + "]";
+				+ descricao + ", conta=" + conta + ", conta_destino=" + conta_destino + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(conta, data, descricao, id, tipo, valor);
+		return Objects.hash(conta, conta_destino, data, descricao, id, tipo, valor);
 	}
 
 	@Override
@@ -112,9 +129,9 @@ public class Transacao {
 		if (getClass() != obj.getClass())
 			return false;
 		Transacao other = (Transacao) obj;
-		return Objects.equals(conta, other.conta) && Objects.equals(data, other.data)
-				&& Objects.equals(descricao, other.descricao) && Objects.equals(id, other.id) && tipo == other.tipo
-				&& Objects.equals(valor, other.valor);
+		return Objects.equals(conta, other.conta) && Objects.equals(conta_destino, other.conta_destino)
+				&& Objects.equals(data, other.data) && Objects.equals(descricao, other.descricao)
+				&& Objects.equals(id, other.id) && tipo == other.tipo && Objects.equals(valor, other.valor);
 	}
-	
+
 }
