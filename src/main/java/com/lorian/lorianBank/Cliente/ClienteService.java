@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import com.lorian.lorianBank.cliente.DTOs.ClienteGetDTO;
 import com.lorian.lorianBank.cliente.DTOs.ClientePostDTO;
 import com.lorian.lorianBank.exceptions.custom.EmailNotFoundException;
-import com.lorian.lorianBank.exceptions.custom.IdNotFoundException;
 
 import jakarta.transaction.Transactional;
 

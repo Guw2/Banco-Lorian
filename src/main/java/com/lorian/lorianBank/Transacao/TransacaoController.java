@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.lorian.lorianBank.transacao.DTOs.TransacaoGetDTO;
 import com.lorian.lorianBank.transacao.DTOs.TransacaoPostDTO;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/transacoes")
 public class TransacaoController {
@@ -34,7 +36,7 @@ public class TransacaoController {
 	}
 	
 	@PostMapping
-	public TransacaoGetDTO insertTransacao(@RequestBody TransacaoPostDTO dto) {
+	public TransacaoGetDTO insertTransacao(@RequestBody @Valid TransacaoPostDTO dto) {
 		return service.insertTransacao(dto);
 	}
 	

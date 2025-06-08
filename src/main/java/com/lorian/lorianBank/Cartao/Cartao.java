@@ -1,8 +1,6 @@
 package com.lorian.lorianBank.cartao;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.util.Objects;
 import java.util.UUID;
 

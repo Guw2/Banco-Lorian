@@ -4,6 +4,10 @@ import java.util.UUID;
 
 import com.lorian.lorianBank.conta.TipoConta;
 
-public record ContaPostDTO(TipoConta tipo, UUID cliente_id) {
+import jakarta.validation.constraints.NotNull;
+
+public record ContaPostDTO(
+		@NotNull TipoConta tipo,
+		@NotNull UUID cliente_id) {
 
 }

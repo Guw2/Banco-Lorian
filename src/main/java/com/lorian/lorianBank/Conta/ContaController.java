@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.lorian.lorianBank.conta.DTOs.ContaGetDTO;
 import com.lorian.lorianBank.conta.DTOs.ContaPostDTO;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/contas")
 public class ContaController {
@@ -36,7 +38,7 @@ public class ContaController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<ContaGetDTO> insert(@RequestBody ContaPostDTO dto){
+	public ResponseEntity<ContaGetDTO> insert(@RequestBody @Valid ContaPostDTO dto){
 		return new ResponseEntity<ContaGetDTO>(service.insertConta(dto), HttpStatus.CREATED);
 		
 	}

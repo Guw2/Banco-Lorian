@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.lorian.lorianBank.cliente.DTOs.ClienteGetDTO;
 import com.lorian.lorianBank.cliente.DTOs.ClientePostDTO;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/clientes")
 public class ClienteController {
@@ -36,7 +38,7 @@ public class ClienteController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<ClienteGetDTO> insert(@RequestBody ClientePostDTO dto){
+	public ResponseEntity<ClienteGetDTO> insert(@RequestBody @Valid ClientePostDTO dto){
 		return new ResponseEntity<ClienteGetDTO>(service.insertCliente(dto), HttpStatus.CREATED);
 	}
 	

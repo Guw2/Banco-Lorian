@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lorian.lorianBank.cartao.DTOs.CartaoGetDTO;
 import com.lorian.lorianBank.cartao.DTOs.CartaoPostDTO;
-import com.lorian.lorianBank.exceptions.custom.NumeroNotFoundException;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/cartoes")
@@ -37,7 +38,7 @@ public class CartaoController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<CartaoGetDTO> insert(@RequestBody CartaoPostDTO dto){
+	public ResponseEntity<CartaoGetDTO> insert(@RequestBody @Valid CartaoPostDTO dto){
 		return new ResponseEntity<CartaoGetDTO>(service.insertCartao(dto), HttpStatus.CREATED);
 	}
 	
