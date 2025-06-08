@@ -14,12 +14,12 @@ import com.lorian.lorianBank.conta.ContaRepository;
 import com.lorian.lorianBank.exceptions.custom.IdNotFoundException;
 
 @Component
-public class GenerateCartaoImpl implements GenerateCartao {
+public class CartaoFactoryImpl implements CartaoFactory {
 	
 	private final ClienteRepository cliente_repo;
 	private final ContaRepository conta_repo;
 	
-	public GenerateCartaoImpl(ClienteRepository cliente_repo, ContaRepository conta_repo) {
+	public CartaoFactoryImpl(ClienteRepository cliente_repo, ContaRepository conta_repo) {
 		this.cliente_repo = cliente_repo;
 		this.conta_repo = conta_repo;
 	}
@@ -32,9 +32,9 @@ public class GenerateCartaoImpl implements GenerateCartao {
 		cartao.setValidade(LocalDateTime.now().plusYears(5).toInstant(ZoneOffset.of("-03:00")));
 		cartao.setLimite(500.0D);
 		cartao.setBandeira(chooseBandeira());
-		cartao.setCliente(cliente_repo.findById(dto.cliente_id())
+		cartao.setCliente(cliente_repo.findById(dto.getCliente_id())
 				.orElseThrow(() -> new IdNotFoundException("Id de cliente não encontrado.")));
-		cartao.setConta(conta_repo.findById(dto.conta_id())
+		cartao.setConta(conta_repo.findById(dto.getConta_id())
 				.orElseThrow(() -> new IdNotFoundException("Id de conta não encontrado.")));
 		
 		return cartao;

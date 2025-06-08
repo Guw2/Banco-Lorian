@@ -13,12 +13,12 @@ import com.lorian.lorianBank.conta.TipoConta;
 import com.lorian.lorianBank.exceptions.custom.IdNotFoundException;
 
 @Component
-public class GenerateContaImpl implements GenerateConta{
+public class ContaFactoryImpl implements ContaFactory{
 
 	private final ClienteRepository cliente_repo;
 	private final ContaRepository conta_repo;
 	
-	public GenerateContaImpl(ClienteRepository cliente_repo, ContaRepository conta_repo) {
+	public ContaFactoryImpl(ClienteRepository cliente_repo, ContaRepository conta_repo) {
 		this.cliente_repo = cliente_repo;
 		this.conta_repo = conta_repo;
 	}

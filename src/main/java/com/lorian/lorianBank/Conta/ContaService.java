@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.lorian.lorianBank.conta.DTOs.ContaGetDTO;
 import com.lorian.lorianBank.conta.DTOs.ContaPostDTO;
-import com.lorian.lorianBank.conta.factory.GenerateConta;
+import com.lorian.lorianBank.conta.factory.ContaFactory;
 import com.lorian.lorianBank.exceptions.custom.NumeroNotFoundException;
 
 import jakarta.transaction.Transactional;
@@ -15,9 +15,9 @@ import jakarta.transaction.Transactional;
 public class ContaService {
 
 	private final ContaRepository repo;
-	private final GenerateConta generateConta;
+	private final ContaFactory generateConta;
 
-	public ContaService(ContaRepository repo, GenerateConta generateConta) {
+	public ContaService(ContaRepository repo, ContaFactory generateConta) {
 		this.repo = repo;
 		this.generateConta = generateConta;
 	}
@@ -32,7 +32,7 @@ public class ContaService {
 	}
 		
 	public ContaGetDTO insertConta(ContaPostDTO dto) {
-		return ContaMapper.contaToGetDTO(repo.save(generateConta.generate(dto.tipo(), dto.cliente_id())));
+		return ContaMapper.contaToGetDTO(repo.save(generateConta.generate(dto.getTipo(), dto.getCliente_id())));
 	}
 	
 	@Transactional

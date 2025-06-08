@@ -5,7 +5,7 @@ import java.util.UUID;
 import com.lorian.lorianBank.conta.Conta;
 import com.lorian.lorianBank.conta.TipoConta;
 
-public interface GenerateConta {
+public interface ContaFactory {
 	
 	Conta generate(TipoConta tipo, UUID cliente_id);
 

@@ -18,12 +18,12 @@ public class ClienteMapper {
 	
 	protected static Cliente postDtoToCliente(ClientePostDTO dto) {
 		Cliente cliente = new Cliente();
-		cliente.setNome(dto.nome());
-		cliente.setCpf(dto.cpf());
-		cliente.setIdade(dto.idade());
-		cliente.setEndereco(dto.endereco());
-		cliente.setTelefone(dto.telefone());
-		cliente.setEmail(dto.email());
+		cliente.setNome(dto.getNome());
+		cliente.setCpf(dto.getCpf());
+		cliente.setIdade(dto.getIdade());
+		cliente.setEndereco(dto.getEndereco());
+		cliente.setTelefone(dto.getTelefone());
+		cliente.setEmail(dto.getEmail());
 		return cliente;
 	}
 		

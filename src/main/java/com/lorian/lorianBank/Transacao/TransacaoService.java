@@ -13,22 +13,25 @@ import com.lorian.lorianBank.transacao.DTOs.TransacaoPostDTO;
 public class TransacaoService {
 
 	private final TransacaoRepository repo;
-
-	public TransacaoService(TransacaoRepository repo) {
-		this.repo = repo;
-	}
+	private final TransacaoMapper mapper;
 	
+	public TransacaoService(TransacaoRepository repo, TransacaoMapper mapper) {
+		this.repo = repo;
+		this.mapper = mapper;
+	}
+
 	public List<TransacaoGetDTO> getAllTransacoes(){
-		return repo.findAll().stream().map(x -> TransacaoMapper.transacaoToGetDto(x)).toList();
+		return repo.findAll().stream().map(x -> mapper.transacaoToGetDto(x)).toList();
 	}
 	
 	public TransacaoGetDTO getTransacaoById(UUID id) {
-		return TransacaoMapper.transacaoToGetDto(repo.findById(id)
+		return mapper.transacaoToGetDto(repo.findById(id)
 				.orElseThrow(() -> new IdNotFoundException("Esse id não existe.")));
 	}
 	
-	public TransacaoGetDTO insertTransacao(TransacaoPostDTO dto) {
-		return TransacaoMapper.transacaoToGetDto(repo.save(TransacaoMapper.postDtoToTransacao(dto)));
+	public TransacaoGetDTO doTransacao(TransacaoPostDTO dto) {
+		Transacao transacao = mapper.postDtoToTransacao(dto);
+		return mapper.transacaoToGetDto(repo.save(transacao));
 	}
 	
 }

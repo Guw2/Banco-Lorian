@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.lorian.lorianBank.cartao.DTOs.CartaoGetDTO;
 import com.lorian.lorianBank.cartao.DTOs.CartaoPostDTO;
-import com.lorian.lorianBank.cartao.factory.GenerateCartao;
+import com.lorian.lorianBank.cartao.factory.CartaoFactory;
 import com.lorian.lorianBank.exceptions.custom.NumeroNotFoundException;
 
 import jakarta.transaction.Transactional;
@@ -15,9 +15,9 @@ import jakarta.transaction.Transactional;
 public class CartaoService {
 	
 	private final CartaoRepository repo;
-	private final GenerateCartao generateCartao;
+	private final CartaoFactory generateCartao;
 
-	public CartaoService(CartaoRepository repo, GenerateCartao generateCartao) {
+	public CartaoService(CartaoRepository repo, CartaoFactory generateCartao) {
 		this.repo = repo;
 		this.generateCartao = generateCartao;
 	}

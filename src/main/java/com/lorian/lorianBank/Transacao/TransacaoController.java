@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lorian.lorianBank.transacao.DTOs.DepositoPostDTO;
+import com.lorian.lorianBank.transacao.DTOs.SaquePostDTO;
 import com.lorian.lorianBank.transacao.DTOs.TransacaoGetDTO;
-import com.lorian.lorianBank.transacao.DTOs.TransacaoPostDTO;
+import com.lorian.lorianBank.transacao.DTOs.TransferenciaPostDTO;
 
 import jakarta.validation.Valid;
 
@@ -35,9 +37,19 @@ public class TransacaoController {
 		return service.getTransacaoById(id);
 	}
 	
-	@PostMapping
-	public TransacaoGetDTO insertTransacao(@RequestBody @Valid TransacaoPostDTO dto) {
-		return service.insertTransacao(dto);
+	@PostMapping("/sacar")
+	public TransacaoGetDTO insertTransacaoSaque(@RequestBody @Valid SaquePostDTO dto) {
+		return service.doTransacao(dto);
+	}
+	
+	@PostMapping("/depositar")
+	public TransacaoGetDTO insertTransacaoDeposito(@RequestBody @Valid DepositoPostDTO dto) {
+		return service.doTransacao(dto);
+	}
+	
+	@PostMapping("/transferir")
+	public TransacaoGetDTO insertTransacaoTransferencia(@RequestBody @Valid TransferenciaPostDTO dto) {
+		return service.doTransacao(dto);
 	}
 	
 }
