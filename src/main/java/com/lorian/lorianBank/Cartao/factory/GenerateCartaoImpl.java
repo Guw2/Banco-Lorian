@@ -1,4 +1,4 @@
-package com.lorian.lorianBank.cartao;
+package com.lorian.lorianBank.cartao.factory;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -6,22 +6,25 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import org.springframework.stereotype.Component;
 
+import com.lorian.lorianBank.cartao.BandeiraCartao;
+import com.lorian.lorianBank.cartao.Cartao;
 import com.lorian.lorianBank.cartao.DTOs.CartaoPostDTO;
 import com.lorian.lorianBank.cliente.ClienteRepository;
 import com.lorian.lorianBank.conta.ContaRepository;
 import com.lorian.lorianBank.exceptions.custom.IdNotFoundException;
 
 @Component
-public class GenerateCartao {
+public class GenerateCartaoImpl implements GenerateCartao {
 	
 	private final ClienteRepository cliente_repo;
 	private final ContaRepository conta_repo;
 	
-	public GenerateCartao(ClienteRepository cliente_repo, ContaRepository conta_repo) {
+	public GenerateCartaoImpl(ClienteRepository cliente_repo, ContaRepository conta_repo) {
 		this.cliente_repo = cliente_repo;
 		this.conta_repo = conta_repo;
 	}
 	
+	@Override
 	public Cartao generate(CartaoPostDTO dto) {
 		Cartao cartao = new Cartao();
 		cartao.setNumero(generateNumero());

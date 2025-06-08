@@ -1,0 +1,10 @@
+package com.lorian.lorianBank.cartao.factory;
+
+import com.lorian.lorianBank.cartao.Cartao;
+import com.lorian.lorianBank.cartao.DTOs.CartaoPostDTO;
+
+public interface GenerateCartao {
+
+	Cartao generate(CartaoPostDTO dto);
+	
+}

@@ -1,4 +1,4 @@
-package com.lorian.lorianBank.conta;
+package com.lorian.lorianBank.conta.factory;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -7,20 +7,24 @@ import java.util.concurrent.ThreadLocalRandom;
 import org.springframework.stereotype.Component;
 
 import com.lorian.lorianBank.cliente.ClienteRepository;
+import com.lorian.lorianBank.conta.Conta;
+import com.lorian.lorianBank.conta.ContaRepository;
+import com.lorian.lorianBank.conta.TipoConta;
 import com.lorian.lorianBank.exceptions.custom.IdNotFoundException;
 
 @Component
-public class GenerateConta {
+public class GenerateContaImpl implements GenerateConta{
 
 	private final ClienteRepository cliente_repo;
 	private final ContaRepository conta_repo;
 	
-	public GenerateConta(ClienteRepository cliente_repo, ContaRepository conta_repo) {
+	public GenerateContaImpl(ClienteRepository cliente_repo, ContaRepository conta_repo) {
 		this.cliente_repo = cliente_repo;
 		this.conta_repo = conta_repo;
 	}
 
-	protected Conta generate(TipoConta tipo, UUID cliente_id) {
+	@Override
+	public Conta generate(TipoConta tipo, UUID cliente_id) {
 		Conta conta = new Conta();
 		conta.setNumero(generateNumero());
 		conta.setAgencia(generateAgencia());

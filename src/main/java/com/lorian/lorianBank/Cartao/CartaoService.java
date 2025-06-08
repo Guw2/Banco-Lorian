@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.lorian.lorianBank.cartao.DTOs.CartaoGetDTO;
 import com.lorian.lorianBank.cartao.DTOs.CartaoPostDTO;
+import com.lorian.lorianBank.cartao.factory.GenerateCartao;
 import com.lorian.lorianBank.exceptions.custom.NumeroNotFoundException;
 
 import jakarta.transaction.Transactional;

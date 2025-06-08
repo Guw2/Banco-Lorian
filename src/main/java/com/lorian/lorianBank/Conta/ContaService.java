@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.lorian.lorianBank.conta.DTOs.ContaGetDTO;
 import com.lorian.lorianBank.conta.DTOs.ContaPostDTO;
+import com.lorian.lorianBank.conta.factory.GenerateConta;
 import com.lorian.lorianBank.exceptions.custom.NumeroNotFoundException;
 
 import jakarta.transaction.Transactional;
