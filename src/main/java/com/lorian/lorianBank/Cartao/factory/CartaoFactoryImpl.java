@@ -11,34 +11,38 @@ import com.lorian.lorianBank.cartao.Cartao;
 import com.lorian.lorianBank.cartao.DTOs.post.CartaoPostDTO;
 import com.lorian.lorianBank.cliente.ClienteRepository;
 import com.lorian.lorianBank.conta.ContaRepository;
+import com.lorian.lorianBank.conta.TipoConta;
 import com.lorian.lorianBank.exceptions.custom.IdNotFoundException;
 
 @Component
 public class CartaoFactoryImpl implements CartaoFactory {
 	
-	private final ClienteRepository cliente_repo;
 	private final ContaRepository conta_repo;
 	
-	public CartaoFactoryImpl(ClienteRepository cliente_repo, ContaRepository conta_repo) {
-		this.cliente_repo = cliente_repo;
+	public CartaoFactoryImpl(ContaRepository conta_repo) {
 		this.conta_repo = conta_repo;
 	}
 	
 	@Override
 	public Cartao generate(CartaoPostDTO dto) {
-		Cartao cartao = new Cartao();
-		cartao.setNumero(generateNumero());
-		cartao.setCvv(generateCvv());
-		cartao.setValidade(LocalDateTime.now().plusYears(5).toInstant(ZoneOffset.of("-03:00")));
-		cartao.setLimite(500.0D);
-		cartao.setBandeira(chooseBandeira());
-		cartao.setAtivado(false);
-		cartao.setCliente(cliente_repo.findById(dto.getCliente_id())
-				.orElseThrow(() -> new IdNotFoundException("Id de cliente não encontrado.")));
-		cartao.setConta(conta_repo.findById(dto.getConta_id())
-				.orElseThrow(() -> new IdNotFoundException("Id de conta não encontrado.")));
 		
-		return cartao;
+		if(conta_repo.findById(dto.getConta_id()).get().getTipo() == TipoConta.POUPANCA)
+			throw new RuntimeException("Contas poupança não podem ter cartões de crédito associados.");
+		else {
+			Cartao cartao = new Cartao();
+			cartao.setNumero(generateNumero());
+			cartao.setCvv(generateCvv());
+			cartao.setValidade(LocalDateTime.now().plusYears(5).toInstant(ZoneOffset.of("-03:00")));
+			cartao.setLimite(500.0D);
+			cartao.setBandeira(chooseBandeira());
+			cartao.setAtivado(false);
+			cartao.setCliente(conta_repo.findById(dto.getConta_id())
+					.orElseThrow(() -> new IdNotFoundException("Id de cliente não encontrado.")).getCliente());
+			cartao.setConta(conta_repo.findById(dto.getConta_id())
+					.orElseThrow(() -> new IdNotFoundException("Id de conta não encontrado.")));
+			
+			return cartao;
+		}
 	}
 	
 	private String generateNumero() {

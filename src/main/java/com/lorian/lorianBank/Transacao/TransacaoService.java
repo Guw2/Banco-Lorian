@@ -95,6 +95,8 @@ public class TransacaoService {
 					throw new TransacaoException("Você não tem limite para realizar essa transferência.");
 				else if(cartao.getAtivado() == false)
 					throw new TransacaoException("Cartão não ativado.");
+				else if(cartao.getConta().getId() == conta.getId()) 
+					throw new TransacaoException("Você não pode transferir para a própria conta.");
 				else {
 					cartao.debitar(valor);
 					conta.creditar(valor);
