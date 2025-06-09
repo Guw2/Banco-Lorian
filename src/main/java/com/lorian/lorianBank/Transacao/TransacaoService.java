@@ -48,65 +48,74 @@ public class TransacaoService {
 	private final void pay(Transacao transacao) {
 		Double valor = transacao.getValor();
 		
-		if(transacao.getTipo() == TipoTransacao.TRANSFERENCIA) {
-			Conta conta1 = transacao.getConta(); Conta conta2 = transacao.getConta_destino();
-			
-			if(valor > conta1.getSaldo()) 
-				throw new TransacaoException("Saldo insuficiente.");
-			else if(valor > 10000) 
-				throw new TransacaoException("Limite de R$10000 para transferências ultrapassado.");
-			else {
-				conta1.debitar(valor);
-				conta2.creditar(valor);
-				conta_repo.save(conta1);
-				conta_repo.save(conta2);
+		if(valor <= 0) throw new TransacaoException("Valores negativos ou nulos não são aceitos.");
+		else {
+			if(transacao.getTipo() == TipoTransacao.TRANSFERENCIA) {
+				Conta conta1 = transacao.getConta(); Conta conta2 = transacao.getConta_destino();
+				
+				if(valor > conta1.getSaldo()) 
+					throw new TransacaoException("Saldo insuficiente.");
+				else if(valor > 10000) 
+					throw new TransacaoException("Limite de R$10000 para transferências ultrapassado.");
+				else if(conta1.getId() == conta2.getId())
+					throw new TransacaoException("Você não pode transferir para a própria conta.");
+				else {
+					conta1.debitar(valor);
+					conta2.creditar(valor);
+					conta_repo.save(conta1);
+					conta_repo.save(conta2);
+				}
+				
+			}else if(transacao.getTipo() == TipoTransacao.DEPOSITO) {
+				Conta conta = transacao.getConta_destino();
+				
+				if(valor > 5000) 
+					throw new TransacaoException("Limite de R$5000 para depósitos ultrapassado.");
+				else {
+					conta.creditar(valor);
+					conta_repo.save(conta);
+				}
+			}else if(transacao.getTipo() == TipoTransacao.SAQUE) {
+				Conta conta = transacao.getConta();
+				
+				if(valor > 5000) 
+					throw new TransacaoException("Limite de R$5000 para saques ultrapassado.");
+				else {
+					conta.debitar(valor);
+					conta_repo.save(conta);
+				}
+			}else if(transacao.getTipo() == TipoTransacao.CARTAO_DE_CREDITO) {
+				
+				Cartao cartao = cartao_repo.findByNumero(transacao.getNumero_cartao())
+						.orElseThrow(() -> new NumeroNotFoundException("Não existe um cartão com esse número."));
+				
+				Conta conta = transacao.getConta_destino();
+				
+				if(valor > cartao.getLimite()) 
+					throw new TransacaoException("Você não tem limite para realizar essa transferência.");
+				else {
+					cartao.debitar(valor);
+					conta.creditar(valor);
+					cartao_repo.save(cartao);
+					conta_repo.save(conta);
+				}
+			}else if(transacao.getTipo() == TipoTransacao.PAGAMENTO_FATURA) {
+				Cartao cartao = cartao_repo.findByNumero(transacao.getNumero_cartao())
+						.orElseThrow(() -> new NumeroNotFoundException("Não existe um cartão com esse número."));
+				Conta conta = cartao.getConta();
+				
+				valor = cartao.creditar(valor);
+				
+				if(conta.getSaldo() < valor) throw new TransacaoException("Saldo insuficiente.");
+				else if(cartao.getLimite() == 500.0) throw new TransacaoException("Sem faturas a pagar.");
+				else {
+					conta.debitar(valor);
+					transacao.setValor(valor);
+					
+					cartao_repo.save(cartao);
+					conta_repo.save(conta);
+				}
 			}
-			
-		}else if(transacao.getTipo() == TipoTransacao.DEPOSITO) {
-			Conta conta = transacao.getConta_destino();
-			
-			if(valor > 5000) 
-				throw new TransacaoException("Limite de R$5000 para depósitos ultrapassado.");
-			else {
-				conta.creditar(valor);
-				conta_repo.save(conta);
-			}
-		}else if(transacao.getTipo() == TipoTransacao.SAQUE) {
-			Conta conta = transacao.getConta();
-			
-			if(valor > 5000) 
-				throw new TransacaoException("Limite de R$5000 para saques ultrapassado.");
-			else {
-				conta.debitar(valor);
-				conta_repo.save(conta);
-			}
-		}else if(transacao.getTipo() == TipoTransacao.CARTAO_DE_CREDITO) {
-			
-			Cartao cartao = cartao_repo.findByNumero(transacao.getNumero_cartao())
-					.orElseThrow(() -> new NumeroNotFoundException("Não existe um cartão com esse número."));
-			
-			Conta conta = transacao.getConta_destino();
-			
-			if(valor > cartao.getLimite()) 
-				throw new TransacaoException("Limite para crédito ultrapassado.");
-			else {
-				cartao.debitar(valor);
-				conta.creditar(valor);
-				cartao_repo.save(cartao);
-				conta_repo.save(conta);
-			}
-		}else if(transacao.getTipo() == TipoTransacao.PAGAMENTO_FATURA) {
-			Cartao cartao = cartao_repo.findByNumero(transacao.getNumero_cartao())
-					.orElseThrow(() -> new NumeroNotFoundException("Não existe um cartão com esse número."));
-			Conta conta = cartao.getConta();
-			
-			valor = cartao.creditar(valor);
-			
-			conta.debitar(valor);
-			transacao.setValor(valor);
-			
-			cartao_repo.save(cartao);
-			conta_repo.save(conta);
 		}
 	}
 		
