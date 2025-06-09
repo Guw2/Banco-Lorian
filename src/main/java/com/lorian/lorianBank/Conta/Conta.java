@@ -20,7 +20,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 @Entity
-public class Conta {
+public class Conta implements ContaOps{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -149,6 +149,16 @@ public class Conta {
 				&& Objects.equals(id, other.id) && Objects.equals(numero, other.numero)
 				&& Objects.equals(saldo, other.saldo) && tipo == other.tipo
 				&& Objects.equals(transacao, other.transacao);
+	}
+
+	@Override
+	public void debitar(Double valor) {
+		setSaldo(getSaldo() - valor);
+	}
+
+	@Override
+	public void acrescentar(Double valor) {
+		setSaldo(getSaldo() + valor);
 	}
 
 }
