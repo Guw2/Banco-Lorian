@@ -1,5 +1,5 @@
 CREATE TABLE cliente (
-    id BINARY(16) NOT NULL,
+    id BIGINT NOT NULL AUTO_INCREMENT,
     nome VARCHAR(255) NOT NULL,
     cpf VARCHAR(14) NOT NULL UNIQUE,
     idade INT,

@@ -6,11 +6,19 @@ import com.lorian.lorianBank.transacao.TipoTransacao;
 
 public class TransacaoGetDTO {
 	
+	private Long id;
 	private Double valor;
 	private Instant data;
 	private TipoTransacao tipo;
 	private Long conta_remetente;
 	private Long conta_destinatario;
+	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 	public Double getValor() {
 		return valor;
 	}

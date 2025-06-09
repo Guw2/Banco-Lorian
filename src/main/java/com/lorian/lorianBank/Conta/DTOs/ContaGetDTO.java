@@ -7,20 +7,19 @@ import com.lorian.lorianBank.conta.TipoConta;
 
 public class ContaGetDTO{
 
+	private Long id;
 	private Long numero;
 	private String agencia;
 	private Double saldo;
 	private TipoConta tipo;
 	private ClienteGetDTO cliente;
 
-	public ContaGetDTO() {}
-	
-	public ContaGetDTO(Long numero, String agencia, Double saldo, TipoConta tipo, ClienteGetDTO cliente) {
-		this.numero = numero;
-		this.agencia = agencia;
-		this.saldo = saldo;
-		this.tipo = tipo;
-		this.cliente = cliente;
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Long getNumero() {

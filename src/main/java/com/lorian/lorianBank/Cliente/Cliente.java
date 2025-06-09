@@ -2,8 +2,6 @@ package com.lorian.lorianBank.cliente;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
-
 import com.lorian.lorianBank.cartao.Cartao;
 import com.lorian.lorianBank.conta.Conta;
 
@@ -19,8 +17,8 @@ import jakarta.persistence.OneToMany;
 public class Cliente {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.UUID)
-	private UUID id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	@Column
 	private String nome;
 	@Column
@@ -43,7 +41,7 @@ public class Cliente {
 	public Cliente() {
 	}
 	
-	public Cliente(UUID id, String nome, String cpf, Integer idade, String endereco, String telefone, String email,
+	public Cliente(Long id, String nome, String cpf, Integer idade, String endereco, String telefone, String email,
 			List<Conta> contas, List<Cartao> cartoes) {
 		this.id = id;
 		this.nome = nome;
@@ -56,11 +54,11 @@ public class Cliente {
 		this.cartoes = cartoes;
 	}
 
-	public UUID getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

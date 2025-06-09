@@ -16,23 +16,25 @@ public class ContaService {
 
 	private final ContaRepository repo;
 	private final ContaFactory generateConta;
+	private final ContaMapper mapper;
 
-	public ContaService(ContaRepository repo, ContaFactory generateConta) {
+	public ContaService(ContaRepository repo, ContaFactory generateConta, ContaMapper mapper) {
 		this.repo = repo;
 		this.generateConta = generateConta;
+		this.mapper = mapper;
 	}
 
 	public List<ContaGetDTO> getAllContas(){
-		return repo.findAll().stream().map(x -> ContaMapper.contaToGetDTO(x)).toList();
+		return repo.findAll().stream().map(x -> mapper.contaToGetDTO(x)).toList();
 	}
 	
 	public ContaGetDTO getContaByNumero(Long numero) {
-		return ContaMapper.contaToGetDTO(repo.findByNumero(numero)
+		return mapper.contaToGetDTO(repo.findByNumero(numero)
 				.orElseThrow(() -> new NumeroNotFoundException("Conta com número " + numero + " não foi registrada.")));
 	}
 		
 	public ContaGetDTO insertConta(ContaPostDTO dto) {
-		return ContaMapper.contaToGetDTO(repo.save(generateConta.generate(dto.getTipo(), dto.getCliente_id())));
+		return mapper.contaToGetDTO(repo.save(generateConta.generate(dto.getTipo(), dto.getCliente_id())));
 	}
 	
 	@Transactional

@@ -14,23 +14,25 @@ import jakarta.transaction.Transactional;
 public class ClienteService {
 
 	private final ClienteRepository repo;
+	private final ClienteMapper mapper;
 
-	public ClienteService(ClienteRepository repo) {
+	public ClienteService(ClienteRepository repo, ClienteMapper mapper) {
 		this.repo = repo;
+		this.mapper = mapper;
 	}
-	
+
 	public List<ClienteGetDTO> getAllClientes(){
-		return repo.findAll().stream().map(x -> ClienteMapper.clienteToGetDto(x)).toList();
+		return repo.findAll().stream().map(x -> mapper.clienteToGetDto(x)).toList();
 	}
 	
 	public ClienteGetDTO getClienteByEmail(String email) {
-		return ClienteMapper.clienteToGetDto(repo.findByEmail(email)
+		return mapper.clienteToGetDto(repo.findByEmail(email)
 				.orElseThrow(() -> new EmailNotFoundException("Este e-mail não foi cadastrado.")));
 	}
 	
 	public ClienteGetDTO insertCliente(ClientePostDTO dto) {
-		Cliente cliente = ClienteMapper.postDtoToCliente(dto);
-		return ClienteMapper.clienteToGetDto(repo.save(cliente));
+		Cliente cliente = mapper.postDtoToCliente(dto);
+		return mapper.clienteToGetDto(repo.save(cliente));
 	}
 	
 	@Transactional

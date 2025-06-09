@@ -2,7 +2,6 @@ package com.lorian.lorianBank.transacao;
 
 import java.time.Instant;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.lorian.lorianBank.conta.ContaRepository;
@@ -26,6 +25,7 @@ public class TransacaoMapper {
 		
 		TransacaoGetDTO transacaoGetDTO = new TransacaoGetDTO();
 		
+		transacaoGetDTO.setId(transacao.getId());
 		transacaoGetDTO.setValor(transacao.getValor());
 		transacaoGetDTO.setData(transacao.getData());
 		transacaoGetDTO.setTipo(transacao.getTipo());

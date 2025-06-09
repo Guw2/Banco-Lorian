@@ -1,3 +1,3 @@
 ALTER TABLE transacao
-MODIFY conta_id BINARY(16) NULL,
-MODIFY conta_destino_id BINARY(16) NULL;
+MODIFY conta_id BIGINT NULL,
+MODIFY conta_destino_id BIGINT NULL;

@@ -16,23 +16,25 @@ public class CartaoService {
 	
 	private final CartaoRepository repo;
 	private final CartaoFactory generateCartao;
+	private final CartaoMapper mapper;
 
-	public CartaoService(CartaoRepository repo, CartaoFactory generateCartao) {
+	public CartaoService(CartaoRepository repo, CartaoFactory generateCartao, CartaoMapper mapper) {
 		this.repo = repo;
 		this.generateCartao = generateCartao;
+		this.mapper = mapper;
 	}
-	
+
 	public List<CartaoGetDTO> getAllCartoes(){
-		return repo.findAll().stream().map(x -> CartaoMapper.cartaoToGetDTO(x)).toList();
+		return repo.findAll().stream().map(x -> mapper.cartaoToGetDTO(x)).toList();
 	}
 	
 	public CartaoGetDTO getCartaoByNumero(String numero) {
-		return CartaoMapper.cartaoToGetDTO(repo.findByNumero(numero)
+		return mapper.cartaoToGetDTO(repo.findByNumero(numero)
 				.orElseThrow(() -> new NumeroNotFoundException("Este número não foi registrado.")));
 	}
 	
 	public CartaoGetDTO insertCartao(CartaoPostDTO dto) {
-		return CartaoMapper.cartaoToGetDTO(repo.save(generateCartao.generate(dto)));
+		return mapper.cartaoToGetDTO(repo.save(generateCartao.generate(dto)));
 	}
 	
 	@Transactional

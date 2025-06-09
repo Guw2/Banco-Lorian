@@ -3,8 +3,6 @@ package com.lorian.lorianBank.conta;
 import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
-
 import com.lorian.lorianBank.cartao.Cartao;
 import com.lorian.lorianBank.cliente.Cliente;
 import com.lorian.lorianBank.transacao.Transacao;
@@ -25,8 +23,8 @@ import jakarta.persistence.OneToMany;
 public class Conta {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.UUID)
-	private UUID id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	@Column
 	private Long numero;
 	@Column
@@ -51,7 +49,7 @@ public class Conta {
 	
 	public Conta() {}
 	
-	public Conta(UUID id, Long numero, String agencia, Double saldo, TipoConta tipo, Instant data_de_abertura,
+	public Conta(Long id, Long numero, String agencia, Double saldo, TipoConta tipo, Instant data_de_abertura,
 			Cliente cliente, List<Transacao> transacao, List<Cartao> cartoes) {
 		this.id = id;
 		this.numero = numero;
@@ -64,10 +62,10 @@ public class Conta {
 		this.cartoes = cartoes;
 	}
 
-	public UUID getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(UUID id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public Long getNumero() {

@@ -4,20 +4,18 @@ import java.util.Objects;
 
 public class ClienteGetDTO {
 
+	private Long id;
 	private String nome;
 	private Integer idade;
 	private String telefone;
 	private String email;
-
-	public ClienteGetDTO() {}
 	
-	public ClienteGetDTO(String nome, Integer idade, String telefone, String email) {
-		this.nome = nome;
-		this.idade = idade;
-		this.telefone = telefone;
-		this.email = email;
+	public Long getId() {
+		return id;
 	}
-	
+	public void setId(Long id) {
+		this.id = id;
+	}
 	public String getNome() {
 		return nome;
 	}

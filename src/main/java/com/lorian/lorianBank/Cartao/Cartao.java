@@ -2,8 +2,6 @@ package com.lorian.lorianBank.cartao;
 
 import java.time.Instant;
 import java.util.Objects;
-import java.util.UUID;
-
 import com.lorian.lorianBank.cliente.Cliente;
 import com.lorian.lorianBank.conta.Conta;
 
@@ -20,8 +18,8 @@ import jakarta.persistence.ManyToOne;
 @Entity
 public class Cartao {
 	@Id
-	@GeneratedValue(strategy = GenerationType.UUID)
-	private UUID id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	@Column
 	private String numero;
 	@Column
@@ -44,7 +42,7 @@ public class Cartao {
 
 	public Cartao() {}
 
-	public Cartao(UUID id, String numero, Integer cvv, Instant validade, Double limite, BandeiraCartao bandeira,
+	public Cartao(Long id, String numero, Integer cvv, Instant validade, Double limite, BandeiraCartao bandeira,
 			Cliente cliente, Conta conta) {
 		this.id = id;
 		this.numero = numero;
@@ -56,11 +54,11 @@ public class Cartao {
 		this.conta = conta;
 	}
 
-	public UUID getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

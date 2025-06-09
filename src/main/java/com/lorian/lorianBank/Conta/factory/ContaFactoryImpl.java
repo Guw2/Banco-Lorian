@@ -1,7 +1,6 @@
 package com.lorian.lorianBank.conta.factory;
 
 import java.time.Instant;
-import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.springframework.stereotype.Component;
@@ -24,7 +23,7 @@ public class ContaFactoryImpl implements ContaFactory{
 	}
 
 	@Override
-	public Conta generate(TipoConta tipo, UUID cliente_id) {
+	public Conta generate(TipoConta tipo, Long cliente_id) {
 		Conta conta = new Conta();
 		conta.setNumero(generateNumero());
 		conta.setAgencia(generateAgencia());

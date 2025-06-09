@@ -5,20 +5,20 @@ import java.util.Objects;
 import com.lorian.lorianBank.cartao.BandeiraCartao;
 
 public class CartaoGetDTO {
+	
+	private Long id;
 	private String numero; 
 	private Double limite; 
 	private BandeiraCartao bandeira;
 	private String dono;
 	private Long conta;
 	
-	public CartaoGetDTO() {}
+	public Long getId() {
+		return id;
+	}
 
-	public CartaoGetDTO(String numero, Double limite, BandeiraCartao bandeira, String dono, Long conta) {
-		this.numero = numero;
-		this.limite = limite;
-		this.bandeira = bandeira;
-		this.dono = dono;
-		this.conta = conta;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getNumero() {

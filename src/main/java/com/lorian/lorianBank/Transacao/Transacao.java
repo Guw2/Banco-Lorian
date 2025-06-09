@@ -2,8 +2,6 @@ package com.lorian.lorianBank.transacao;
 
 import java.time.Instant;
 import java.util.Objects;
-import java.util.UUID;
-
 import com.lorian.lorianBank.conta.Conta;
 
 import jakarta.persistence.Column;
@@ -18,8 +16,8 @@ import jakarta.persistence.ManyToOne;
 public class Transacao {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.UUID)
-	private UUID id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	@Column
 	private Double valor;
 	@Column
@@ -41,7 +39,7 @@ public class Transacao {
 	public Transacao() {}
 
 
-	public Transacao(UUID id, Double valor, Instant data, TipoTransacao tipo, String descricao, Conta conta,
+	public Transacao(Long id, Double valor, Instant data, TipoTransacao tipo, String descricao, Conta conta,
 			Conta conta_destino) {
 		this.id = id;
 		this.valor = valor;
@@ -53,11 +51,11 @@ public class Transacao {
 	}
 
 
-	public UUID getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

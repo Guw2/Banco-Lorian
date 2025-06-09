@@ -8,15 +8,19 @@ import com.lorian.lorianBank.cliente.DTOs.ClientePostDTO;
 @Component
 public class ClienteMapper {
 	
-	public static ClienteGetDTO clienteToGetDto(Cliente cliente) {
-		return new ClienteGetDTO(
-				cliente.getNome(),
-				cliente.getIdade(),
-				cliente.getTelefone(),
-				cliente.getEmail());
+	public ClienteGetDTO clienteToGetDto(Cliente cliente) {
+		ClienteGetDTO clienteGetDTO = new ClienteGetDTO();
+		
+		clienteGetDTO.setId(cliente.getId());
+		clienteGetDTO.setNome(cliente.getNome());
+		clienteGetDTO.setIdade(cliente.getIdade());
+		clienteGetDTO.setTelefone(cliente.getTelefone());
+		clienteGetDTO.setEmail(cliente.getEmail());
+		
+		return clienteGetDTO;
 	}
 	
-	protected static Cliente postDtoToCliente(ClientePostDTO dto) {
+	protected Cliente postDtoToCliente(ClientePostDTO dto) {
 		Cliente cliente = new Cliente();
 		cliente.setNome(dto.getNome());
 		cliente.setCpf(dto.getCpf());

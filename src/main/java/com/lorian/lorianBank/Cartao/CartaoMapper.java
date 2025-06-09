@@ -7,14 +7,18 @@ import com.lorian.lorianBank.cartao.DTOs.CartaoGetDTO;
 @Component
 public class CartaoMapper {
 	
-	public static CartaoGetDTO cartaoToGetDTO(Cartao cartao) {
-		return new CartaoGetDTO(
-				cartao.getNumero(),
-				cartao.getLimite(),
-				cartao.getBandeira(),
-				cartao.getCliente().getEmail(),
-				cartao.getConta().getNumero()
-				);
+	public CartaoGetDTO cartaoToGetDTO(Cartao cartao) {
+		
+		CartaoGetDTO cartaoGetDTO = new CartaoGetDTO();
+		
+		cartaoGetDTO.setId(cartao.getId());
+		cartaoGetDTO.setNumero(cartao.getNumero());
+		cartaoGetDTO.setLimite(cartao.getLimite());
+		cartaoGetDTO.setBandeira(cartao.getBandeira());
+		cartaoGetDTO.setDono(cartao.getCliente().getEmail());
+		cartaoGetDTO.setConta(cartao.getConta().getNumero());
+		
+		return cartaoGetDTO;
 	}
 
 }

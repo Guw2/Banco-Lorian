@@ -1,7 +1,5 @@
 package com.lorian.lorianBank.transacao.DTOs;
 
-import java.util.UUID;
-
 import com.lorian.lorianBank.transacao.TipoTransacao;
 
 import jakarta.validation.constraints.Max;
@@ -13,8 +11,8 @@ public class TransferenciaPostDTO implements TransacaoPostDTO{
 
 	@NotNull @Max(value = 10000) Double valor;
 	@NotBlank @Size(max = 120) String descricao;
-	@NotNull UUID conta_id;
-	@NotNull UUID conta_destino_id;
+	@NotNull Long conta_id;
+	@NotNull Long conta_destino_id;
 	
 	@Override
 	public Double getValor() {
@@ -26,11 +24,11 @@ public class TransferenciaPostDTO implements TransacaoPostDTO{
 		this.valor = valor;
 	}
 	
-	public UUID getConta_destino_id() {
+	public Long getConta_destino_id() {
 		return conta_destino_id;
 	}
 	
-	public UUID getConta_id() {
+	public Long getConta_id() {
 		return conta_id;
 	}
 	
