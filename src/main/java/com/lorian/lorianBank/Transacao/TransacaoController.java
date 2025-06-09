@@ -1,8 +1,6 @@
 package com.lorian.lorianBank.transacao;
 
 import java.util.List;
-import java.util.UUID;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,7 +31,7 @@ public class TransacaoController {
 	}
 	
 	@GetMapping("/{id}")
-	public TransacaoGetDTO getTransacaoById(@PathVariable UUID id) {
+	public TransacaoGetDTO getTransacaoById(@PathVariable Long id) {
 		return service.getTransacaoById(id);
 	}
 	

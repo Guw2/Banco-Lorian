@@ -6,6 +6,8 @@ import com.lorian.lorianBank.conta.Conta;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,6 +25,7 @@ public class Transacao {
 	@Column
 	private Instant data;
 	@Column
+	@Enumerated(EnumType.STRING)
 	private TipoTransacao tipo;
 	@Column
 	private String descricao;

@@ -2,7 +2,6 @@ package com.lorian.lorianBank.transacao.DTOs;
 
 import com.lorian.lorianBank.transacao.TipoTransacao;
 
-import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotNull;
 
 public class DepositoPostDTO implements TransacaoPostDTO{

@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Objects;
 import com.lorian.lorianBank.cartao.Cartao;
 import com.lorian.lorianBank.cliente.Cliente;
-import com.lorian.lorianBank.exceptions.custom.TransacaoException;
 import com.lorian.lorianBank.transacao.Transacao;
 
 import jakarta.persistence.CascadeType;

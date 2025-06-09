@@ -1,7 +1,6 @@
 package com.lorian.lorianBank.transacao;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
@@ -29,7 +28,7 @@ public class TransacaoService {
 		return transacao_repo.findAll().stream().map(x -> mapper.transacaoToGetDto(x)).toList();
 	}
 	
-	public TransacaoGetDTO getTransacaoById(UUID id) {
+	public TransacaoGetDTO getTransacaoById(Long id) {
 		return mapper.transacaoToGetDto(transacao_repo.findById(id)
 				.orElseThrow(() -> new IdNotFoundException("Esse id não existe.")));
 	}
