@@ -30,6 +30,9 @@ public class Transacao {
 	@Column
 	private String descricao;
 	
+	@Column
+	private String numero_cartao = "N/A";
+	
 	@ManyToOne
 	@JoinColumn(name = "conta_id")
 	private Conta conta;
@@ -42,17 +45,25 @@ public class Transacao {
 	public Transacao() {}
 
 
-	public Transacao(Long id, Double valor, Instant data, TipoTransacao tipo, String descricao, Conta conta,
-			Conta conta_destino) {
+	public Transacao(Long id, Double valor, Instant data, TipoTransacao tipo, String descricao, String numero_cartao,
+			Conta conta, Conta conta_destino) {
 		this.id = id;
 		this.valor = valor;
 		this.data = data;
 		this.tipo = tipo;
 		this.descricao = descricao;
+		this.numero_cartao = numero_cartao;
 		this.conta = conta;
 		this.conta_destino = conta_destino;
 	}
 
+	public String getNumero_cartao() {
+		return numero_cartao;
+	}
+
+	public void setNumero_cartao(String numero_cartao) {
+		this.numero_cartao = numero_cartao;
+	}
 
 	public Long getId() {
 		return id;

@@ -2,7 +2,7 @@ package com.lorian.lorianBank.cartao;
 
 import org.springframework.stereotype.Component;
 
-import com.lorian.lorianBank.cartao.DTOs.CartaoGetDTO;
+import com.lorian.lorianBank.cartao.DTOs.get.CartaoGetDTO;
 
 @Component
 public class CartaoMapper {

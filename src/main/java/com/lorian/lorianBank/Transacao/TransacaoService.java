@@ -4,23 +4,29 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.lorian.lorianBank.cartao.Cartao;
+import com.lorian.lorianBank.cartao.CartaoRepository;
 import com.lorian.lorianBank.conta.Conta;
 import com.lorian.lorianBank.conta.ContaRepository;
 import com.lorian.lorianBank.exceptions.custom.IdNotFoundException;
+import com.lorian.lorianBank.exceptions.custom.NumeroNotFoundException;
 import com.lorian.lorianBank.exceptions.custom.TransacaoException;
-import com.lorian.lorianBank.transacao.DTOs.TransacaoGetDTO;
-import com.lorian.lorianBank.transacao.DTOs.TransacaoPostDTO;
+import com.lorian.lorianBank.transacao.DTOs.get.TransacaoGetDTO;
+import com.lorian.lorianBank.transacao.DTOs.post.TransacaoPostDTO;
 
 @Service
 public class TransacaoService {
 
 	private final TransacaoRepository transacao_repo;
 	private final ContaRepository conta_repo;
+	private final CartaoRepository cartao_repo;
 	private final TransacaoMapper mapper;
 	
-	public TransacaoService(TransacaoRepository transacao_repo, ContaRepository conta_repo, TransacaoMapper mapper) {
+	public TransacaoService(TransacaoRepository transacao_repo, ContaRepository conta_repo,
+			CartaoRepository cartao_repo, TransacaoMapper mapper) {
 		this.transacao_repo = transacao_repo;
 		this.conta_repo = conta_repo;
+		this.cartao_repo = cartao_repo;
 		this.mapper = mapper;
 	}
 
@@ -51,7 +57,7 @@ public class TransacaoService {
 				throw new TransacaoException("Limite de R$10000 para transferências ultrapassado.");
 			else {
 				conta1.debitar(valor);
-				conta2.acrescentar(valor);
+				conta2.creditar(valor);
 				conta_repo.save(conta1);
 				conta_repo.save(conta2);
 			}
@@ -62,7 +68,7 @@ public class TransacaoService {
 			if(valor > 5000) 
 				throw new TransacaoException("Limite de R$5000 para depósitos ultrapassado.");
 			else {
-				conta.acrescentar(valor);
+				conta.creditar(valor);
 				conta_repo.save(conta);
 			}
 		}else if(transacao.getTipo() == TipoTransacao.SAQUE) {
@@ -74,6 +80,33 @@ public class TransacaoService {
 				conta.debitar(valor);
 				conta_repo.save(conta);
 			}
+		}else if(transacao.getTipo() == TipoTransacao.CARTAO_DE_CREDITO) {
+			
+			Cartao cartao = cartao_repo.findByNumero(transacao.getNumero_cartao())
+					.orElseThrow(() -> new NumeroNotFoundException("Não existe um cartão com esse número."));
+			
+			Conta conta = transacao.getConta_destino();
+			
+			if(valor > cartao.getLimite()) 
+				throw new TransacaoException("Limite para crédito ultrapassado.");
+			else {
+				cartao.debitar(valor);
+				conta.creditar(valor);
+				cartao_repo.save(cartao);
+				conta_repo.save(conta);
+			}
+		}else if(transacao.getTipo() == TipoTransacao.PAGAMENTO_FATURA) {
+			Cartao cartao = cartao_repo.findByNumero(transacao.getNumero_cartao())
+					.orElseThrow(() -> new NumeroNotFoundException("Não existe um cartão com esse número."));
+			Conta conta = cartao.getConta();
+			
+			valor = cartao.creditar(valor);
+			
+			conta.debitar(valor);
+			transacao.setValor(valor);
+			
+			cartao_repo.save(cartao);
+			conta_repo.save(conta);
 		}
 	}
 		

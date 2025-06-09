@@ -1,4 +1,4 @@
-package com.lorian.lorianBank.cartao.DTOs;
+package com.lorian.lorianBank.cartao.DTOs.get;
 
 import java.util.Objects;
 

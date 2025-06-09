@@ -1,4 +1,4 @@
-package com.lorian.lorianBank.conta.DTOs;
+package com.lorian.lorianBank.conta.DTOs.post;
 
 import com.lorian.lorianBank.conta.TipoConta;
 

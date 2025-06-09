@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.lorian.lorianBank.cartao.DTOs.CartaoGetDTO;
-import com.lorian.lorianBank.cartao.DTOs.CartaoPostDTO;
+import com.lorian.lorianBank.cartao.DTOs.get.CartaoGetDTO;
+import com.lorian.lorianBank.cartao.DTOs.post.CartaoPostDTO;
 import com.lorian.lorianBank.cartao.factory.CartaoFactory;
 import com.lorian.lorianBank.exceptions.custom.NumeroNotFoundException;
 

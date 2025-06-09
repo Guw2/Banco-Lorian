@@ -16,7 +16,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class Cartao {
+public class Cartao implements CartaoOps {
+	
+	private static final Double TAXA = 0.12;
+	
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -142,6 +146,26 @@ public class Cartao {
 				&& Objects.equals(conta, other.conta) && Objects.equals(cvv, other.cvv) && Objects.equals(id, other.id)
 				&& Objects.equals(limite, other.limite) && Objects.equals(numero, other.numero)
 				&& Objects.equals(validade, other.validade);
+	}
+
+	@Override
+	public Double debitar(Double valor) {
+		valor = valor + (valor*TAXA);
+		setLimite(getLimite() - valor);
+		return valor;
+	}
+
+	@Override
+	public Double creditar(Double valor) {
+		if(getLimite() + valor < 500.0) {
+			setLimite(getLimite() + valor);
+			return valor;
+		}
+		else {
+			var valor_diff = 500.0 - getLimite();
+			setLimite(500.0);
+			return valor_diff;
+		}
 	}
 	
 }

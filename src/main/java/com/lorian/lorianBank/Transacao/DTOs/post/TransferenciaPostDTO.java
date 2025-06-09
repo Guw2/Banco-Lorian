@@ -1,4 +1,4 @@
-package com.lorian.lorianBank.transacao.DTOs;
+package com.lorian.lorianBank.transacao.DTOs.post;
 
 import com.lorian.lorianBank.transacao.TipoTransacao;
 

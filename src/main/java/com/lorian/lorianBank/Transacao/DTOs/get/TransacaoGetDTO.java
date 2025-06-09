@@ -1,4 +1,4 @@
-package com.lorian.lorianBank.transacao.DTOs;
+package com.lorian.lorianBank.transacao.DTOs.get;
 
 import java.time.Instant;
 

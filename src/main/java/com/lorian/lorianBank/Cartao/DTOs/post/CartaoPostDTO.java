@@ -1,4 +1,4 @@
-package com.lorian.lorianBank.cartao.DTOs;
+package com.lorian.lorianBank.cartao.DTOs.post;
 
 import jakarta.validation.constraints.NotNull;
 

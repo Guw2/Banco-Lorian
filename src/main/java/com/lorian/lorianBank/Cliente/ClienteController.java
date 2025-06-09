@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lorian.lorianBank.cliente.DTOs.ClienteGetDTO;
-import com.lorian.lorianBank.cliente.DTOs.ClientePostDTO;
+import com.lorian.lorianBank.cliente.DTOs.get.ClienteGetDTO;
+import com.lorian.lorianBank.cliente.DTOs.post.ClientePostDTO;
 
 import jakarta.validation.Valid;
 

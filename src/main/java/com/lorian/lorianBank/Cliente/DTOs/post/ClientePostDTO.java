@@ -1,4 +1,4 @@
-package com.lorian.lorianBank.cliente.DTOs;
+package com.lorian.lorianBank.cliente.DTOs.post;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;

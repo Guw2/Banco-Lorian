@@ -1,4 +1,4 @@
-package com.lorian.lorianBank.cliente.DTOs;
+package com.lorian.lorianBank.cliente.DTOs.get;
 
 import java.util.Objects;
 

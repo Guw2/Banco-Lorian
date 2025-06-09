@@ -1,0 +1,2 @@
+ALTER TABLE transacao
+ADD COLUMN numero_cartao VARCHAR(19) NOT NULL;

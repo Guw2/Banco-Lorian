@@ -157,7 +157,7 @@ public class Conta implements ContaOps{
 	}
 
 	@Override
-	public void acrescentar(Double valor) {
+	public void creditar(Double valor) {
 		setSaldo(getSaldo() + valor);
 	}
 

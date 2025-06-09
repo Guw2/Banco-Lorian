@@ -13,7 +13,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.lorian.lorianBank.conta.ContaRepository;
-import com.lorian.lorianBank.transacao.DTOs.TransacaoGetDTO;
+import com.lorian.lorianBank.transacao.DTOs.get.TransacaoGetDTO;
 
 @ExtendWith(MockitoExtension.class)
 public class TransacaoServiceTest {

@@ -1,8 +1,8 @@
-package com.lorian.lorianBank.conta.DTOs;
+package com.lorian.lorianBank.conta.DTOs.get;
 
 import java.util.Objects;
 
-import com.lorian.lorianBank.cliente.DTOs.ClienteGetDTO;
+import com.lorian.lorianBank.cliente.DTOs.get.ClienteGetDTO;
 import com.lorian.lorianBank.conta.TipoConta;
 
 public class ContaGetDTO{

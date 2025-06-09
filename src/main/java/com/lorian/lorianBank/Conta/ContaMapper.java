@@ -3,7 +3,7 @@ package com.lorian.lorianBank.conta;
 import org.springframework.stereotype.Component;
 
 import com.lorian.lorianBank.cliente.ClienteMapper;
-import com.lorian.lorianBank.conta.DTOs.ContaGetDTO;
+import com.lorian.lorianBank.conta.DTOs.get.ContaGetDTO;
 
 @Component
 public class ContaMapper {

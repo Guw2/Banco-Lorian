@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.lorian.lorianBank.conta.DTOs.ContaGetDTO;
-import com.lorian.lorianBank.conta.DTOs.ContaPostDTO;
+import com.lorian.lorianBank.conta.DTOs.get.ContaGetDTO;
+import com.lorian.lorianBank.conta.DTOs.post.ContaPostDTO;
 import com.lorian.lorianBank.conta.factory.ContaFactory;
 import com.lorian.lorianBank.exceptions.custom.NumeroNotFoundException;
 
