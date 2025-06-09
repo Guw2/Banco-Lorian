@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.lorian.lorianBank.cartao.DTOs.get.CartaoGetDTO;
 import com.lorian.lorianBank.cartao.DTOs.post.CartaoPostDTO;
 import com.lorian.lorianBank.cartao.factory.CartaoFactory;
+import com.lorian.lorianBank.exceptions.custom.IdNotFoundException;
 import com.lorian.lorianBank.exceptions.custom.NumeroNotFoundException;
 
 import jakarta.transaction.Transactional;
@@ -43,5 +44,18 @@ public class CartaoService {
 			repo.deleteByNumero(numero);
 		else
 			throw new NumeroNotFoundException("Este número não foi registrado.");
+	}
+	
+	public String ativarCartaoById(Long id) {
+		Cartao cartao = repo.findById(id)
+				.orElseThrow(() -> new IdNotFoundException("Este id não existe."));
+		
+		if(cartao.getAtivado() == true)
+			return "Este cartão já foi ativado.";
+		
+		cartao.setAtivado(true);
+		repo.save(cartao);
+		return "Cartão ativado com sucesso.\nNúmero="
+		+ cartao.getNumero() + "\nID=" + cartao.getId();
 	}
 }

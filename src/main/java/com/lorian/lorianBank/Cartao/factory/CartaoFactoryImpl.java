@@ -32,6 +32,7 @@ public class CartaoFactoryImpl implements CartaoFactory {
 		cartao.setValidade(LocalDateTime.now().plusYears(5).toInstant(ZoneOffset.of("-03:00")));
 		cartao.setLimite(500.0D);
 		cartao.setBandeira(chooseBandeira());
+		cartao.setAtivado(false);
 		cartao.setCliente(cliente_repo.findById(dto.getCliente_id())
 				.orElseThrow(() -> new IdNotFoundException("Id de cliente não encontrado.")));
 		cartao.setConta(conta_repo.findById(dto.getConta_id())

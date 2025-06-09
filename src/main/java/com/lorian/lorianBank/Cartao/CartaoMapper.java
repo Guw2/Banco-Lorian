@@ -15,6 +15,7 @@ public class CartaoMapper {
 		cartaoGetDTO.setNumero(cartao.getNumero());
 		cartaoGetDTO.setLimite(cartao.getLimite());
 		cartaoGetDTO.setBandeira(cartao.getBandeira());
+		cartaoGetDTO.setAtivado(cartao.getAtivado());
 		cartaoGetDTO.setDono(cartao.getCliente().getEmail());
 		cartaoGetDTO.setConta(cartao.getConta().getNumero());
 		

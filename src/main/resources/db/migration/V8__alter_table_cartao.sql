@@ -1,0 +1,2 @@
+ALTER TABLE cartao
+ADD COLUMN ativado TINYINT(1) NOT NULL;

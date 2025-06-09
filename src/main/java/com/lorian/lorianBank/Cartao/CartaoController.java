@@ -47,5 +47,10 @@ public class CartaoController {
 		service.deleteCartaoByNumero(numero);
 		return ResponseEntity.noContent().build();
 	}
+	
+	@GetMapping("/ativar/{id}")
+	public String ativarCartao(@PathVariable Long id) {
+		return service.ativarCartaoById(id);
+	}
 
 }

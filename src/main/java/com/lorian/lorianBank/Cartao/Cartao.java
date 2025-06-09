@@ -35,6 +35,8 @@ public class Cartao implements CartaoOps {
 	@Column
 	@Enumerated(EnumType.STRING)
 	private BandeiraCartao bandeira;
+	@Column
+	private Boolean ativado;
 	
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
@@ -104,6 +106,14 @@ public class Cartao implements CartaoOps {
 
 	public void setBandeira(BandeiraCartao bandeira) {
 		this.bandeira = bandeira;
+	}
+
+	public Boolean getAtivado() {
+		return ativado;
+	}
+
+	public void setAtivado(Boolean ativado) {
+		this.ativado = ativado;
 	}
 
 	public Cliente getCliente() {

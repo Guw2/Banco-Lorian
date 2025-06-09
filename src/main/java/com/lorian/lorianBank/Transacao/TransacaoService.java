@@ -93,6 +93,8 @@ public class TransacaoService {
 				
 				if(valor > cartao.getLimite()) 
 					throw new TransacaoException("Você não tem limite para realizar essa transferência.");
+				else if(cartao.getAtivado() == false)
+					throw new TransacaoException("Cartão não ativado.");
 				else {
 					cartao.debitar(valor);
 					conta.creditar(valor);
@@ -100,20 +102,27 @@ public class TransacaoService {
 					conta_repo.save(conta);
 				}
 			}else if(transacao.getTipo() == TipoTransacao.PAGAMENTO_FATURA) {
+				
 				Cartao cartao = cartao_repo.findByNumero(transacao.getNumero_cartao())
 						.orElseThrow(() -> new NumeroNotFoundException("Não existe um cartão com esse número."));
-				Conta conta = cartao.getConta();
 				
-				valor = cartao.creditar(valor);
-				
-				if(conta.getSaldo() < valor) throw new TransacaoException("Saldo insuficiente.");
-				else if(cartao.getLimite() == 500.0) throw new TransacaoException("Sem faturas a pagar.");
+				if(cartao.getLimite() == 500.0) throw new TransacaoException("Sem faturas a pagar.");
 				else {
-					conta.debitar(valor);
-					transacao.setValor(valor);
+					Conta conta = cartao.getConta();
 					
-					cartao_repo.save(cartao);
-					conta_repo.save(conta);
+					valor = cartao.creditar(valor);
+					
+					if(conta.getSaldo() < valor) 
+						throw new TransacaoException("Saldo insuficiente.");
+					else if(cartao.getAtivado() == false)
+						throw new TransacaoException("Cartão não ativado.");
+					else {
+						conta.debitar(valor);
+						transacao.setValor(valor);
+						
+						cartao_repo.save(cartao);
+						conta_repo.save(conta);
+					}
 				}
 			}
 		}

@@ -10,6 +10,7 @@ public class CartaoGetDTO {
 	private String numero; 
 	private Double limite; 
 	private BandeiraCartao bandeira;
+	private Boolean ativado;
 	private String dono;
 	private Long conta;
 	
@@ -43,6 +44,14 @@ public class CartaoGetDTO {
 
 	public void setBandeira(BandeiraCartao bandeira) {
 		this.bandeira = bandeira;
+	}
+	
+	public Boolean getAtivado() {
+		return ativado;
+	}
+
+	public void setAtivado(Boolean ativado) {
+		this.ativado = ativado;
 	}
 
 	public String getDono() {
