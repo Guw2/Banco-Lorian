@@ -12,6 +12,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import com.lorian.lorianBank.exceptions.custom.EmailNotFoundException;
 import com.lorian.lorianBank.exceptions.custom.IdNotFoundException;
 import com.lorian.lorianBank.exceptions.custom.NumeroNotFoundException;
+import com.lorian.lorianBank.exceptions.custom.TransacaoException;
 
 @ControllerAdvice
 public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptionHandler{
@@ -30,7 +31,7 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
 	}
 	
 	@ExceptionHandler(value = EmailNotFoundException.class)
-	public ResponseEntity<ExceptionTemplate> EmailNotFoundExceptionHandler(
+	public ResponseEntity<ExceptionTemplate> emailNotFoundExceptionHandler(
 			EmailNotFoundException e, WebRequest req
 			){
 		ExceptionTemplate exceptionTemplate = new ExceptionTemplate();
@@ -43,7 +44,7 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
 	}
 	
 	@ExceptionHandler(value = NumeroNotFoundException.class)
-	public ResponseEntity<ExceptionTemplate> EmailNotFoundExceptionHandler(
+	public ResponseEntity<ExceptionTemplate> numeroNotFoundExceptionHandler(
 			NumeroNotFoundException e, WebRequest req
 			){
 		ExceptionTemplate exceptionTemplate = new ExceptionTemplate();
@@ -53,6 +54,32 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
 		exceptionTemplate.setPath(req.getDescription(false).replace("uri=", ""));
 		
 		return new ResponseEntity<ExceptionTemplate>(exceptionTemplate, HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(value = TransacaoException.class)
+	public ResponseEntity<ExceptionTemplate> transacaoExceptionHandler(
+			TransacaoException e, WebRequest req
+			){
+		ExceptionTemplate exceptionTemplate = new ExceptionTemplate();
+		exceptionTemplate.setTimestamp(Instant.now());
+		exceptionTemplate.setStatus(HttpStatus.NOT_ACCEPTABLE.value());
+		exceptionTemplate.setError(e.getMessage());
+		exceptionTemplate.setPath(req.getDescription(false).replace("uri=", ""));
+		
+		return new ResponseEntity<ExceptionTemplate>(exceptionTemplate, HttpStatus.NOT_ACCEPTABLE);
+	}
+	
+	@ExceptionHandler(value = Exception.class)
+	public ResponseEntity<ExceptionTemplate> genericExceptionHandler(
+			Exception e, WebRequest req
+			){
+		ExceptionTemplate exceptionTemplate = new ExceptionTemplate();
+		exceptionTemplate.setTimestamp(Instant.now());
+		exceptionTemplate.setStatus(HttpStatus.BAD_REQUEST.value());
+		exceptionTemplate.setError(e.getMessage());
+		exceptionTemplate.setPath(req.getDescription(false).replace("uri=", ""));
+		
+		return new ResponseEntity<ExceptionTemplate>(exceptionTemplate, HttpStatus.BAD_REQUEST);
 	}
 	
 }

@@ -9,7 +9,7 @@ import jakarta.validation.constraints.Size;
 
 public class TransferenciaPostDTO implements TransacaoPostDTO{
 
-	@NotNull @Max(value = 10000) Double valor;
+	@NotNull Double valor;
 	@NotBlank @Size(max = 120) String descricao;
 	@NotNull Long conta_id;
 	@NotNull Long conta_destino_id;

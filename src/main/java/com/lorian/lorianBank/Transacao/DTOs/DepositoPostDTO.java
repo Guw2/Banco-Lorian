@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotNull;
 
 public class DepositoPostDTO implements TransacaoPostDTO{
 	
-	@NotNull @Max(value = 10000) Double valor;
+	@NotNull Double valor;
 	@NotNull Long conta_destino_id;
 	
 	@Override
