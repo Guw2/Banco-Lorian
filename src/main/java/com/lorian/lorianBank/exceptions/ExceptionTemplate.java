@@ -5,6 +5,8 @@ import java.util.Objects;
 
 public class ExceptionTemplate {
 	
+	// Template para o ResponseEntityExceptionHandler
+	
 	private Instant timestamp;
 	private Integer status;
 	private String error;

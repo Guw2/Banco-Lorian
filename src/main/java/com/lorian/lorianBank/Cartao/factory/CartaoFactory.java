@@ -5,6 +5,7 @@ import com.lorian.lorianBank.cartao.DTOs.post.CartaoPostDTO;
 
 public interface CartaoFactory {
 
+	// Design Pattern para "fabricação" de novos cartões
 	Cartao generate(CartaoPostDTO dto);
 	
 }

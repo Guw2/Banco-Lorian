@@ -6,6 +6,8 @@ import com.lorian.lorianBank.cartao.BandeiraCartao;
 
 public class CartaoGetDTO {
 	
+	// Informações que vão ser mostradas ao client através de Responses
+	
 	private Long id;
 	private String numero; 
 	private Double limite; 

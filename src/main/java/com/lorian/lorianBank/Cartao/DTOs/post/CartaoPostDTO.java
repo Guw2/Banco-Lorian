@@ -4,6 +4,8 @@ import jakarta.validation.constraints.NotNull;
 
 public class CartaoPostDTO {
 
+	// Informações que vão ser coletadas do client através de Requests
+	
 	@NotNull private Long conta_id;
 
 	public Long getConta_id() {

@@ -8,6 +8,8 @@ import jakarta.validation.constraints.Positive;
 
 public class ClientePostDTO{
 	
+	// Informações que vão ser coletadas do client através de Requests
+	
 	@NotBlank String nome;
 	@NotBlank String cpf;
 	@NotNull @Min(value = 18) @Positive Integer idade;

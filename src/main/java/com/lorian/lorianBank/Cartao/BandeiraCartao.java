@@ -1,5 +1,6 @@
 package com.lorian.lorianBank.cartao;
 
+// Bandeiras para cartão (serão escolhidas automaticamente no momento de emissão)
 public enum BandeiraCartao {
 	
 	VISA,

@@ -4,6 +4,8 @@ import java.util.Objects;
 
 public class ClienteGetDTO {
 
+	// Informações que vão ser mostradas ao client através de Responses
+	
 	private Long id;
 	private String nome;
 	private Integer idade;

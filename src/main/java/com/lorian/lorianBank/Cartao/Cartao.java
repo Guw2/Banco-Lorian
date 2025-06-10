@@ -18,6 +18,7 @@ import jakarta.persistence.ManyToOne;
 @Entity
 public class Cartao implements CartaoOps {
 	
+	// Taxa de transferências para cartão
 	private static final Double TAXA = 0.12;
 	
 	

@@ -17,6 +17,8 @@ import com.lorian.lorianBank.exceptions.custom.TransacaoException;
 @ControllerAdvice
 public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptionHandler{
 
+	// Controller global para o tratamento de exceções personalizadas e genéricas
+	
 	@ExceptionHandler(value = IdNotFoundException.class)
 	public ResponseEntity<ExceptionTemplate> IdNotFoundExceptionHandler(
 			IdNotFoundException e, WebRequest req

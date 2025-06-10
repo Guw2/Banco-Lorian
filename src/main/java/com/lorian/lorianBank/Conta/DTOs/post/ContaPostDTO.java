@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotNull;
 
 public class ContaPostDTO {
 	
+	// Informações que vão ser coletadas do client através de Requests
+	
 	@NotNull TipoConta tipo;
 	@NotNull Long cliente_id;
 

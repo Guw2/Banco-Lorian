@@ -7,6 +7,8 @@ import com.lorian.lorianBank.conta.TipoConta;
 
 public class ContaGetDTO{
 
+	// Informações que vão ser mostradas ao client através de Responses
+	
 	private Long id;
 	private Long numero;
 	private String agencia;

@@ -7,6 +7,8 @@ import jakarta.validation.constraints.NotNull;
 
 public class PagamentoCartaoDeCreditoPostDTO implements TransacaoPostDTO{
 
+	// Informações que vão ser coletadas do client através de Requests
+	
 	@NotNull private Double valor;
 	@NotNull private Long cartao_id;
 	@NotNull private Long conta_destino_id;

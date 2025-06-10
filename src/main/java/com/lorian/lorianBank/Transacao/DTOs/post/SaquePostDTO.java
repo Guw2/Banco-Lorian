@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotNull;
 
 public class SaquePostDTO implements TransacaoPostDTO{
 
+	// Informações que vão ser coletadas do client através de Requests
+	
 	@NotNull Double valor;
 	@NotNull Long conta_id;
 	

@@ -6,6 +6,8 @@ import com.lorian.lorianBank.transacao.TipoTransacao;
 
 public class TransacaoGetDTO {
 	
+	// Informações que vão ser mostradas ao client através de Responses
+	
 	private Long id;
 	private Double valor;
 	private Instant data;
