@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 import com.lorian.lorianBank.cartao.Cartao;
 import com.lorian.lorianBank.conta.Conta;
+import com.lorian.lorianBank.security.user.User;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -12,6 +13,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Cliente {
@@ -31,6 +33,9 @@ public class Cliente {
 	private String telefone;
 	@Column
 	private String email;
+	
+	@OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL)
+	private User user;
 	
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	private List<Conta> contas;
@@ -132,6 +137,14 @@ public class Cliente {
 
 	public void setCartoes(List<Cartao> cartoes) {
 		this.cartoes = cartoes;
+	}
+	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	@Override
