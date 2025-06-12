@@ -40,7 +40,7 @@ public class User implements UserDetails{
 	private UserRole role;
 	
 	@OneToOne
-	@JoinColumn(name = "cliente_id")
+	@JoinColumn(name = "cliente_id", unique = true)
 	private Cliente cliente;
 
 	public User() {}
