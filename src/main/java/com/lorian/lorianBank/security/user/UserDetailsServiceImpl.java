@@ -10,12 +10,14 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 
 	private final UserRepository repo;
 	
+	// Constructor Injection
 	public UserDetailsServiceImpl(UserRepository repo) {
 		this.repo = repo;
 	}
 
-	@Override
+	@Override // Implementação do método de UserDetailsService para identificar o Username
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		// Busca um usuário por ser Username (User)
 		return repo.findByUser(username)
 				.orElseThrow(() -> new UsernameNotFoundException("Este nome de usuário não existe."));
 	}

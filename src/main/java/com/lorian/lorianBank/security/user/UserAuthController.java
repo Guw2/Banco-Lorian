@@ -14,17 +14,20 @@ public class UserAuthController {
 
 	private final UserService service;
 	
+	// Contructor Injection
 	public UserAuthController(UserService service) {
 		this.service = service;
 	}
 
-	@PostMapping("/register")
+	@PostMapping("/register") // Endpoint de registro de usuário
 	public String register(@RequestBody UserRecordRegisterPostDTO dto){
+		// Chama o método de registro da camada de serviço
 		return service.register(dto);
 	}
 	
-	@PostMapping("/login")
+	@PostMapping("/login") // Endpoint de login de usuário
 	public String login(@RequestBody UserRecordLoginPostDTO dto) {
+		// Chama o método de login da camada de serviço
 		return service.login(dto);
 	}
 	
