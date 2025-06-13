@@ -18,7 +18,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 	@Override // Implementação do método de UserDetailsService para identificar o Username
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		// Busca um usuário por ser Username (User)
-		return repo.findByUser(username)
+		return repo.findByUsername(username)
 				.orElseThrow(() -> new UsernameNotFoundException("Este nome de usuário não existe."));
 	}
 
