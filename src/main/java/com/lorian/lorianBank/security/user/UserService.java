@@ -2,11 +2,13 @@ package com.lorian.lorianBank.security.user;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.lorian.lorianBank.cliente.Cliente;
 import com.lorian.lorianBank.cliente.ClienteRepository;
+import com.lorian.lorianBank.security.user.DTOs.post.UserRecordLoginPostDTO;
 import com.lorian.lorianBank.security.user.DTOs.post.UserRecordRegisterPostDTO;
 
 @Service
@@ -44,6 +46,18 @@ public class UserService {
 		}catch(Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+	
+	public String login(UserRecordLoginPostDTO dto) {
+		
+		try {
+			Authentication usernamePassword = new UsernamePasswordAuthenticationToken(dto.username(), dto.password());
+			Authentication auth = manager.authenticate(usernamePassword);
+			return "Usuário logado com sucesso!";
+		}catch(Exception e) {
+			throw new RuntimeException(e);
+		}
+		
 	}
 	
 }
