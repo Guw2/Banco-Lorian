@@ -16,17 +16,21 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecuritySettings {
 
-	@Bean
+	@Bean // Configurações do Filter Chain
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		
 		return http
+				// Desabilitar o CSRF
 				.csrf(csrf -> csrf.disable())
+				// Tornando a sessão Stateless
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+				// Configurando permissões de rotas
 				.authorizeHttpRequests(
 						request -> request
 							.requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
 							.requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
 							.anyRequest().authenticated())
+				// Buildando tudo
 				.build();
 	}
 	

@@ -35,8 +35,8 @@ public class UserService {
 		User user = new User();
 		
 		// Transfere dados do DTO para o objeto
-		user.setUser(dto.username());
-		user.setPass(encoder.encode(dto.password()));
+		user.setUsername(dto.username());
+		user.setPassword(encoder.encode(dto.password()));
 		user.setRole(dto.role());
 		
 		// Busca o cliente associado ao usuário por ID para fazer verificações

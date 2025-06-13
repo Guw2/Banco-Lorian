@@ -32,9 +32,9 @@ public class User implements UserDetails{
 	private Long id;
 	
 	@Column
-	private String user;
+	private String username;
 	@Column
-	private String pass;
+	private String password;
 	@Column
 	@Enumerated(EnumType.STRING)
 	private UserRole role;
@@ -45,10 +45,10 @@ public class User implements UserDetails{
 
 	public User() {}
 
-	public User(Long id, String user, String pass, UserRole role, Cliente cliente) {
+	public User(Long id, String username, String password, UserRole role, Cliente cliente) {
 		this.id = id;
-		this.user = user;
-		this.pass = pass;
+		this.username = username;
+		this.password = password;
 		this.role = role;
 		this.cliente = cliente;
 	}
@@ -76,26 +76,18 @@ public class User implements UserDetails{
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-
-	public String getUser() {
-		return user;
+	
+	public void setUsername(String user) {
+		this.username = user;
 	}
 	
-	public void setUser(String user) {
-		this.user = user;
-	}
-
-	public String getPass() {
-		return pass;
-	}
-	
-	public void setPass(String pass) {
-		this.pass = pass;
+	public void setPassword(String pass) {
+		this.password = pass;
 	}
 	
 	@Override
 	public int hashCode() {
-		return Objects.hash(cliente, id, pass, role, user);
+		return Objects.hash(cliente, id, password, role, username);
 	}
 
 	@Override
@@ -108,13 +100,13 @@ public class User implements UserDetails{
 			return false;
 		User other = (User) obj;
 		return Objects.equals(cliente, other.cliente) && Objects.equals(id, other.id)
-				&& Objects.equals(pass, other.pass) && role == other.role
-				&& Objects.equals(user, other.user);
+				&& Objects.equals(password, other.password) && role == other.role
+				&& Objects.equals(username, other.username);
 	}
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + user + ", password=" + pass + ", role=" + role + ", cliente="
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", role=" + role + ", cliente="
 				+ cliente + "]";
 	}
 
@@ -127,12 +119,12 @@ public class User implements UserDetails{
 
 	@Override
 	public String getPassword() {
-		return getPass();
+		return this.password;
 	}
 
 	@Override
 	public String getUsername() {
-		return getUser();
+		return this.username;
 	}
 	
 }
