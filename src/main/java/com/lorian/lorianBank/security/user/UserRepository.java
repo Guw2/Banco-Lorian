@@ -10,6 +10,6 @@ import com.lorian.lorianBank.cliente.Cliente;
 
 public interface UserRepository extends JpaRepository<User, Long>{
 
-	Optional<UserDetails> findByUser(String user);
+	Optional<UserDetails> findByUsername(String username);
 	Optional<UserDetails> findByCliente(Cliente cliente);
 }
