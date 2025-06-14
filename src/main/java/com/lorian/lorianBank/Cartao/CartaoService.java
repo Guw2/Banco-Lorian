@@ -44,7 +44,7 @@ public class CartaoService {
 	// Insere um cartão no banco de dados
 	public CartaoGetDTO insertCartao(CartaoPostDTO dto) { // Recebe um CartaoPostDTO
 		// Gera um cartão utilizando a classe de Factory
-		Cartao cartao = generateCartao.generate(dto);
+		Cartao cartao = generateCartao.generate(dto.getConta_id());
 		// Salva e retorna um CartaoGetDTO já mapeado
 		return mapper.cartaoToGetDTO(repo.save(cartao));
 	}

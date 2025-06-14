@@ -24,11 +24,11 @@ public class CartaoFactoryImpl implements CartaoFactory {
 	}
 	
 	@Override // Implementação do método generate
-	public Cartao generate(CartaoPostDTO dto) {
+	public Cartao generate(Long conta_id) {
 		
 		// Verifica se a conta associada ao DTO é poupança
 		// Se for, é lançada uma exceção
-		if(conta_repo.findById(dto.getConta_id()).get().getTipo() == TipoConta.POUPANCA)
+		if(conta_repo.findById(conta_id).get().getTipo() == TipoConta.POUPANCA)
 			throw new RuntimeException("Contas poupança não podem ter cartões de crédito associados.");
 		// Caso não seja, o cartão é gerado normalmente
 		else {
@@ -42,9 +42,9 @@ public class CartaoFactoryImpl implements CartaoFactory {
 			cartao.setBandeira(chooseBandeira());
 			cartao.setAtivado(false);
 			// Transfere informações do DTO passado como parâmetro
-			cartao.setCliente(conta_repo.findById(dto.getConta_id())
+			cartao.setCliente(conta_repo.findById(conta_id)
 					.orElseThrow(() -> new IdNotFoundException("Id de cliente não encontrado.")).getCliente());
-			cartao.setConta(conta_repo.findById(dto.getConta_id())
+			cartao.setConta(conta_repo.findById(conta_id)
 					.orElseThrow(() -> new IdNotFoundException("Id de conta não encontrado.")));
 			
 			// Retorna o cartão
