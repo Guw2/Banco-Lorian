@@ -27,7 +27,7 @@ public class JWTService {
 					.create()
 					.withIssuer("lorian_bank")
 					.withSubject(user.getUsername())
-					.withExpiresAt(LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00")))
+					.withExpiresAt(LocalDateTime.now().plusMinutes(10).toInstant(ZoneOffset.of("-03:00")))
 					.sign(algorithm);
 			// Retornando o Token
 			return token;

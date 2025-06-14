@@ -22,7 +22,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/clientes")
+@RequestMapping("/ops/clientes")
 @Tag(name = "Controller de Clientes", description = "Operações Relacionadas aos Clientes")
 public class ClienteController {
 

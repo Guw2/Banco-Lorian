@@ -25,7 +25,7 @@ public class ClienteMapper {
 	}
 	
 	// Converte um ClientePostDTO em Cliente
-	protected Cliente postDtoToCliente(ClientePostDTO dto) {
+	public Cliente postDtoToCliente(ClientePostDTO dto) {
 		// Cria um novo Cliente
 		Cliente cliente = new Cliente();
 
