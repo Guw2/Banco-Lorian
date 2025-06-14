@@ -11,10 +11,20 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import com.lorian.lorianBank.security.jwt.JWTSecurityFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SecuritySettings {
+
+	private final JWTSecurityFilter jwtSecurityFilter;
+	
+	// Constructor Injection
+	public SecuritySettings(JWTSecurityFilter jwtSecurityFilter) {
+		this.jwtSecurityFilter = jwtSecurityFilter;
+	}
 
 	@Bean // Configurações do Filter Chain
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -31,6 +41,7 @@ public class SecuritySettings {
 							.requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
 							.requestMatchers(HttpMethod.GET, "/swagger-ui/**", "/v3/api-docs/**").permitAll()
 							.anyRequest().authenticated())
+				.addFilterBefore(jwtSecurityFilter, UsernamePasswordAuthenticationFilter.class)
 				// Buildando tudo
 				.build();
 	}

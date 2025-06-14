@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.lorian.lorianBank.cliente.Cliente;
 import com.lorian.lorianBank.cliente.ClienteRepository;
+import com.lorian.lorianBank.security.jwt.JWTService;
 import com.lorian.lorianBank.security.user.DTOs.post.UserRecordLoginPostDTO;
 import com.lorian.lorianBank.security.user.DTOs.post.UserRecordRegisterPostDTO;
 
@@ -18,15 +19,17 @@ public class UserService {
 	private final ClienteRepository cliente_repo;
 	private final AuthenticationManager manager;
 	private final PasswordEncoder encoder;
+	private final JWTService jwtService;
 
 	
 	// Constructor Injection
 	public UserService(UserRepository user_repo, ClienteRepository cliente_repo, AuthenticationManager manager,
-			PasswordEncoder encoder) {
+			PasswordEncoder encoder, JWTService jwtService) {
 		this.user_repo = user_repo;
 		this.cliente_repo = cliente_repo;
 		this.manager = manager;
 		this.encoder = encoder;
+		this.jwtService = jwtService;
 	}
 
 	// Operação de registro de usuário no banco de dados + encode de senha
@@ -67,8 +70,10 @@ public class UserService {
 			// Autenticando o usuário
 			Authentication usernamePassword = new UsernamePasswordAuthenticationToken(dto.username(), dto.password());
 			Authentication auth = manager.authenticate(usernamePassword);
+			// Gerando o Token JWT
+			String token = jwtService.generateJwtToken((User) auth.getPrincipal());
 			// Mensagem de sucesso
-			return "Usuário logado com sucesso!";
+			return "Usuário logado com sucesso!\nJWT = " + token;
 		}catch(Exception e) {
 			throw new RuntimeException(e);
 		}

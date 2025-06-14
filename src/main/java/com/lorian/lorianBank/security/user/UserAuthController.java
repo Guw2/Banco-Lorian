@@ -38,7 +38,7 @@ public class UserAuthController {
 	
 	@Operation(summary = "Logar um usuário", description = "Faz o login de um usuário")
 	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Usuário logado com sucesso!"),
+			@ApiResponse(responseCode = "200", description = "Usuário logado com sucesso! + JWT Token"),
 			@ApiResponse(responseCode = "400", description = "Ocorreu um erro no login")
 	})
 	@PostMapping("/login") // Endpoint de login de usuário
