@@ -25,7 +25,12 @@ import com.lorian.lorianBank.transacao.TransacaoMapper;
 import com.lorian.lorianBank.transacao.TransacaoRepository;
 import com.lorian.lorianBank.transacao.TransacaoService;
 import com.lorian.lorianBank.transacao.DTOs.get.TransacaoGetDTO;
+import com.lorian.lorianBank.transacao.DTOs.post.DepositoPostDTO;
+import com.lorian.lorianBank.transacao.DTOs.post.PagamentoCartaoDeCreditoPostDTO;
+import com.lorian.lorianBank.transacao.DTOs.post.PagamentoFaturaPostDTO;
+import com.lorian.lorianBank.transacao.DTOs.post.SaquePostDTO;
 import com.lorian.lorianBank.transacao.DTOs.post.TransacaoPostDTO;
+import com.lorian.lorianBank.transacao.DTOs.post.TransferenciaPostDTO;
 
 @Service
 public class UserOpsService {
@@ -92,7 +97,7 @@ public class UserOpsService {
 		return conta_mapper.contaToGetDTO(conta_repo.save(conta));
 	}
 	
-	public List<CartaoGetDTO> getCartoes(){
+	public List<CartaoGetDTO> getCartoesInfo(){
 		List<CartaoGetDTO> list = 
 				cartao_repo.findByCliente(getContextUser().getCliente()).stream().map(x -> cartao_mapper.cartaoToGetDTO(x)).toList();
 		
@@ -119,7 +124,40 @@ public class UserOpsService {
 	}
 	
 	public TransacaoGetDTO doTransacao(TransacaoPostDTO dto) {
-		return transacao_service.doTransacao(dto);
+		if(validateTransacao(dto)) {
+			return transacao_service.doTransacao(dto);
+		}else {
+			throw new RuntimeException("Não é possível usar o dinheiro de uma conta que não é sua.");
+		}
+	}
+	
+	private final Boolean validateTransacao(TransacaoPostDTO dto) {
+		List<ContaGetDTO> contas = getContasInfo();
+		List<CartaoGetDTO> cartoes = getCartoesInfo();
+		Long conta_id = 0L; Long cartao_id = 0L;
+		Boolean use_cartao = false;
+		
+		if(dto instanceof TransferenciaPostDTO transf) conta_id = transf.getConta_id();
+		else if(dto instanceof DepositoPostDTO deposito) conta_id = deposito.getConta_destino_id();
+		else if(dto instanceof SaquePostDTO saque) conta_id = saque.getConta_id();
+		else if(dto instanceof PagamentoCartaoDeCreditoPostDTO cartaoTransf) {
+			cartao_id = cartaoTransf.getCartao_id(); use_cartao = true;
+		}
+		else if(dto instanceof PagamentoFaturaPostDTO fatura) {
+			cartao_id = fatura.getCartao_id(); use_cartao = true;
+		}
+		
+		if(!use_cartao) {
+			for(ContaGetDTO c : contas) {
+				if (c.getId() == conta_id) return true;
+			}
+		}else {
+			for(CartaoGetDTO c : cartoes) {
+				if (c.getId() == cartao_id) return true;
+			}
+		}
+		
+		return false;
 	}
 	
 	private final User getContextUser() {

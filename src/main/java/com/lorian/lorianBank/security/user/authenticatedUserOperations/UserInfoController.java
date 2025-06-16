@@ -24,6 +24,12 @@ import com.lorian.lorianBank.conta.DTOs.get.ContaGetDTO;
 import com.lorian.lorianBank.conta.DTOs.post.ContaUserPostDTO;
 import com.lorian.lorianBank.conta.factory.ContaFactory;
 import com.lorian.lorianBank.security.user.User;
+import com.lorian.lorianBank.transacao.DTOs.get.TransacaoGetDTO;
+import com.lorian.lorianBank.transacao.DTOs.post.DepositoPostDTO;
+import com.lorian.lorianBank.transacao.DTOs.post.PagamentoCartaoDeCreditoPostDTO;
+import com.lorian.lorianBank.transacao.DTOs.post.PagamentoFaturaPostDTO;
+import com.lorian.lorianBank.transacao.DTOs.post.SaquePostDTO;
+import com.lorian.lorianBank.transacao.DTOs.post.TransferenciaPostDTO;
 
 @RestController
 @RequestMapping("/myuser")
@@ -53,7 +59,7 @@ public class UserInfoController {
 	
 	@GetMapping("/cartoes")
 	public ResponseEntity<List<CartaoGetDTO>> getCartoesInfo(){
-		return new ResponseEntity<List<CartaoGetDTO>>(service.getCartoes(), HttpStatus.OK);
+		return new ResponseEntity<List<CartaoGetDTO>>(service.getCartoesInfo(), HttpStatus.OK);
 	}
 	
 	@GetMapping("/cartoes/{numero}")
@@ -64,5 +70,30 @@ public class UserInfoController {
 	@PostMapping("/cartoes/emitir")
 	public ResponseEntity<CartaoGetDTO> emitirCartao(@RequestBody CartaoUserPostDTO dto){
 		return new ResponseEntity<CartaoGetDTO>(service.emitirCartao(dto), HttpStatus.CREATED);
+	}
+	
+	@PostMapping("/transacoes/transferir")
+	public ResponseEntity<TransacaoGetDTO> transferir(@RequestBody TransferenciaPostDTO dto){
+		return new ResponseEntity<TransacaoGetDTO>(service.doTransacao(dto), HttpStatus.ACCEPTED);
+	}
+	
+	@PostMapping("/transacoes/depositar")
+	public ResponseEntity<TransacaoGetDTO> transferir(@RequestBody DepositoPostDTO dto){
+		return new ResponseEntity<TransacaoGetDTO>(service.doTransacao(dto), HttpStatus.ACCEPTED);
+	}
+	
+	@PostMapping("/transacoes/sacar")
+	public ResponseEntity<TransacaoGetDTO> transferir(@RequestBody SaquePostDTO dto){
+		return new ResponseEntity<TransacaoGetDTO>(service.doTransacao(dto), HttpStatus.ACCEPTED);
+	}
+	
+	@PostMapping("/transacoes/transferir-cartao")
+	public ResponseEntity<TransacaoGetDTO> transferir(@RequestBody PagamentoCartaoDeCreditoPostDTO dto){
+		return new ResponseEntity<TransacaoGetDTO>(service.doTransacao(dto), HttpStatus.ACCEPTED);
+	}
+	
+	@PostMapping("/transacoes/pagar-fatura")
+	public ResponseEntity<TransacaoGetDTO> transferir(@RequestBody PagamentoFaturaPostDTO dto){
+		return new ResponseEntity<TransacaoGetDTO>(service.doTransacao(dto), HttpStatus.ACCEPTED);
 	}
 }
