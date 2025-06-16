@@ -21,8 +21,6 @@ import com.lorian.lorianBank.conta.DTOs.get.ContaGetDTO;
 import com.lorian.lorianBank.conta.DTOs.post.ContaUserPostDTO;
 import com.lorian.lorianBank.conta.factory.ContaFactory;
 import com.lorian.lorianBank.security.user.User;
-import com.lorian.lorianBank.transacao.TransacaoMapper;
-import com.lorian.lorianBank.transacao.TransacaoRepository;
 import com.lorian.lorianBank.transacao.TransacaoService;
 import com.lorian.lorianBank.transacao.DTOs.get.TransacaoGetDTO;
 import com.lorian.lorianBank.transacao.DTOs.post.DepositoPostDTO;
@@ -65,78 +63,135 @@ public class UserOpsService {
 		this.transacao_service = transacao_service;
 	}
 	
+	// Buscar os clientes associados ao usuário autenticado
 	public ClienteGetDTO getClienteInfo() {
+		// Armazena o usuário autenticado
 		User user = getContextUser();
+		// Verifica se o usuário não é um valor nulo
 		if(user != null) {
+			// Armazena o cliente associado e converte para ClienteGetDTO
 			ClienteGetDTO cliente = cliente_mapper.clienteToGetDto(user.getCliente());
+			// Verifica se o cliente não é um valor nulo, caso não seja, é retornado
 			if(cliente != null) return cliente;
+			// Caso não seja, uma exceção é lançada
 			else throw new RuntimeException("Nenhum cliente foi associado ao usuário " + user.getUsername() + ".");
 		}else {
+			// Exceção caso o usuário seja um valor nulo
 			throw new RuntimeException("Nenhum usuário foi autenticado.");
 		}
 	}
 
+	// Busca as contas associadas ao usuário
 	public List<ContaGetDTO> getContasInfo(){
+		// Armazena o usuário autenticado
 		User user = getContextUser();
+		// Verifica se o usuário não é um valor nulo
 		if(user != null) {
+			// Armazena o cliente associado
 			Cliente cliente = user.getCliente();
+			// Encontra as contas por associadas ao cliente e converte todas para ContaGetDTO
 			List<ContaGetDTO> list = 
 					conta_repo.findByCliente(cliente).stream()
 					.map(x -> conta_mapper.contaToGetDTO(x)).toList();
 			
+			// Retorna as contas
 			return list;
 		}else {
+			// Exceção caso o usuário seja um valor nulo
 			throw new RuntimeException("Nenhum usuário foi autenticado.");
 		}
 	}
 	
+	// Abre uma nova conta
 	public ContaGetDTO abrirConta(ContaUserPostDTO dto) {
+		// Armazena o usuário autenticado
 		User user = getContextUser();
-		Conta conta = conta_factory.generate(dto.tipo(), user.getCliente().getId());
+		// Verifica se o usuário não é um valor nulo
+		if(user != null) {
+			// Usa o ContaFactory pra gerar uma conta com os dados do DTO passado como parâmetro
+			Conta conta = conta_factory.generate(dto.tipo(), user.getCliente().getId());
+			// Persiste e retorna a conta convertida para ContaGetDTO
+			return conta_mapper.contaToGetDTO(conta_repo.save(conta));
+		}else {
+			// Exceção caso o usuário seja um valor nulo
+			throw new RuntimeException("Nenhum usuário foi autenticado.");
+		}
 		
-		return conta_mapper.contaToGetDTO(conta_repo.save(conta));
 	}
 	
+	// Busca os cartões associados ao usuário
 	public List<CartaoGetDTO> getCartoesInfo(){
-		List<CartaoGetDTO> list = 
-				cartao_repo.findByCliente(getContextUser().getCliente()).stream().map(x -> cartao_mapper.cartaoToGetDTO(x)).toList();
-		
-		return list;
+		User user = getContextUser();
+		// Verifica se o usuário não é um valor nulo
+		if(user != null) {
+			// Encontra os cartões
+			List<CartaoGetDTO> list = 
+					cartao_repo.findByCliente(user.getCliente()).stream().map(x -> cartao_mapper.cartaoToGetDTO(x)).toList();
+			// Retorna a lista
+			return list;
+		}else {
+			// Exceção caso o usuário seja um valor nulo
+			throw new RuntimeException("Nenhum usuário foi autenticado.");
+		}
 	}
 	
-	public List<CartaoGetDTO> getCartoesByNumeroDaConta(Long numero){
-		Conta conta = conta_repo.findByNumero(numero).get();
+	// Busca cartões associados a uma conta específica pelo número dela
+	public List<CartaoGetDTO> getCartoesByNumeroDaConta(Long numero_da_conta){
+		// Encontra a conta pelo número
+		Conta conta = conta_repo.findByNumero(numero_da_conta).get();
+		// Encontra os cartões associados à conta
 		List<CartaoGetDTO> list = 
 				cartao_repo.findByConta(conta).stream().map(x -> cartao_mapper.cartaoToGetDTO(x)).toList();
 		
+		// Retorna a lista
 		return list;
 	}
 	
+	// Emite um novo cartão
 	public CartaoGetDTO emitirCartao(CartaoUserPostDTO dto) {
+		// Armazena o usuário autenticado
+		User user = getContextUser();
+		// Busca e armazena a conta passada no dto
 		Conta conta = conta_repo.findByNumero(dto.numero_da_conta()).get();
 		
-		if(conta.getCliente().getUser().getUsername().equals(getContextUser().getUsername())) {
+		// Verifica se essa conta realmente pertence ao usuário autenticado
+		if(conta.getCliente().getUser().getUsername().equals(user.getUsername())) {
+			// Gera um novo cartão com o CartaoFactory e armazena
 			Cartao cartao = cartao_factory.generate(conta.getId());
+			// Persiste e retorna o cartão convertido para CartaoGetDTO
 			return cartao_mapper.cartaoToGetDTO(cartao_repo.save(cartao));
 		}else {
+			// Exceção caso a conta não exista ou pertença de outro usuário
 			throw new RuntimeException("A conta inserida não pertence a esse usuário.");
 		}
 	}
 	
+	// Operação de transação
 	public TransacaoGetDTO doTransacao(TransacaoPostDTO dto) {
+		// Chama o método pra validar a transação
 		if(validateTransacao(dto)) {
+			// Reaproveita o 'doTransacao()' da camada Service de transação
 			return transacao_service.doTransacao(dto);
 		}else {
+			// Caso a transação seja inválida, uma exceção é lançada
 			throw new RuntimeException("Não é possível usar o dinheiro de uma conta que não é sua.");
 		}
 	}
 	
+	// Validação de transação
 	private final Boolean validateTransacao(TransacaoPostDTO dto) {
+		// Armazena as contas do usuário
 		List<ContaGetDTO> contas = getContasInfo();
+		// Armazena os cartões do usuário
 		List<CartaoGetDTO> cartoes = getCartoesInfo();
+		
+		// Instancia as variáveis de ID de conta e de cartão
 		Long conta_id = 0L; Long cartao_id = 0L;
+		// Valor Boolean pra saber se a operação vai utilizar um cartão ou não
 		Boolean use_cartao = false;
 		
+		// Verifica qual implementação de TransacaoPostDTO foi passada como parâmetro e armazena o ID
+		// da conta ou do cartão
 		if(dto instanceof TransferenciaPostDTO transf) conta_id = transf.getConta_id();
 		else if(dto instanceof DepositoPostDTO deposito) conta_id = deposito.getConta_destino_id();
 		else if(dto instanceof SaquePostDTO saque) conta_id = saque.getConta_id();
@@ -147,19 +202,27 @@ public class UserOpsService {
 			cartao_id = fatura.getCartao_id(); use_cartao = true;
 		}
 		
+		// Caso não seja uma operação via cartão
 		if(!use_cartao) {
+			// Ocorre a tentativa de encontrar a conta informada pelo ID
 			for(ContaGetDTO c : contas) {
+				// Caso a conta seja encontrada, ela é retornada
 				if (c.getId() == conta_id) return true;
 			}
+		// Caso seja uma operação via cartão
 		}else {
+			// Ocorre a tentativa de encontrar o cartão informado pelo ID
 			for(CartaoGetDTO c : cartoes) {
+				// Caso o cartão seja encontrado, ele é retornado
 				if (c.getId() == cartao_id) return true;
 			}
 		}
 		
+		// Retorna falso caso a verificação passe sem encontrar nenhuma conta/cartão
 		return false;
 	}
 	
+	// Método pra recuperar o usuário autenticado
 	private final User getContextUser() {
 		return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	}

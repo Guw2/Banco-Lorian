@@ -13,8 +13,6 @@ import com.lorian.lorianBank.security.jwt.JWTService;
 import com.lorian.lorianBank.security.user.DTOs.post.UserRecordLoginPostDTO;
 import com.lorian.lorianBank.security.user.DTOs.post.UserRecordRegisterPostDTO;
 
-import jakarta.persistence.Column;
-
 @Service
 public class UserService {
 

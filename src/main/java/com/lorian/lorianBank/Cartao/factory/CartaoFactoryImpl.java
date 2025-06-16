@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import com.lorian.lorianBank.cartao.BandeiraCartao;
 import com.lorian.lorianBank.cartao.Cartao;
-import com.lorian.lorianBank.cartao.DTOs.post.CartaoPostDTO;
 import com.lorian.lorianBank.conta.ContaRepository;
 import com.lorian.lorianBank.conta.TipoConta;
 import com.lorian.lorianBank.exceptions.custom.IdNotFoundException;

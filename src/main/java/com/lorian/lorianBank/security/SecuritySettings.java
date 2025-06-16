@@ -43,18 +43,20 @@ public class SecuritySettings {
 							.requestMatchers(HttpMethod.POST, "/ops/**").hasRole("ADMIN")
 							.requestMatchers(HttpMethod.GET, "/ops/**").hasRole("ADMIN")
 							.anyRequest().authenticated())
+				// Adiciona um filtro para validar o token jwt antes de qualquer requestMatchers
 				.addFilterBefore(jwtSecurityFilter, UsernamePasswordAuthenticationFilter.class)
 				// Buildando tudo
 				.build();
 	}
 	
-	@Bean
+	@Bean // Criando a Bean de AuthenticationManager
 	AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
 		return config.getAuthenticationManager();
 	}
 	
-	@Bean
+	@Bean // Criando a Bean de Encode de senha
 	PasswordEncoder passwordEncoder() {
+		// O Encoder escolhido aqui é o BCrypt
 		return new BCryptPasswordEncoder();
 	}
 }
