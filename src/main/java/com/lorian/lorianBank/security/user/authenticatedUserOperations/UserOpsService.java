@@ -20,6 +20,7 @@ import com.lorian.lorianBank.conta.ContaRepository;
 import com.lorian.lorianBank.conta.DTOs.get.ContaGetDTO;
 import com.lorian.lorianBank.conta.DTOs.post.ContaUserPostDTO;
 import com.lorian.lorianBank.conta.factory.ContaFactory;
+import com.lorian.lorianBank.exceptions.custom.IdNotFoundException;
 import com.lorian.lorianBank.security.user.User;
 import com.lorian.lorianBank.transacao.TransacaoService;
 import com.lorian.lorianBank.transacao.DTOs.get.TransacaoGetDTO;
@@ -164,6 +165,35 @@ public class UserOpsService {
 			// Exceção caso a conta não exista ou pertença de outro usuário
 			throw new RuntimeException("A conta inserida não pertence a esse usuário.");
 		}
+	}
+	
+	// Ativa um cartão
+	public String ativarCartao(Long id) {
+		// Armazena o usuário autenticado
+		User user = getContextUser();
+		// Armazena o cartão com o ID passado
+		Cartao cartao = cartao_repo.findById(id)
+				.orElseThrow(() -> new IdNotFoundException("Não existe um cartão com esse id."));
+		
+		// Verifica se o cartão pertence ao usuário cadastrado
+		if(cartao.getCliente().getUser().getUsername().equals(user.getUsername())) {
+			// Verifica se o cartão já está ativado
+			if(!cartao.getAtivado()) {
+				// Ativa o cartão
+				cartao.setAtivado(true);
+				// Persiste o cartão no banco de dados
+				cartao_repo.save(cartao);
+				// Retorna mensagem de sucesso
+				return "Cartão ativado com sucesso!";
+			}else {
+				// Caso o cartão já tenha sido ativado, uma exceção é lançada
+				throw new RuntimeException("Esse cartão já foi ativado.");
+			}
+		}else {
+			// Caso o cartão não pertença ao usuário autenticado, uma exceção é lançada
+			throw new RuntimeException("Esse cartão não pertence ao usuário autenticado.");
+		}
+		
 	}
 	
 	// Operação de transação

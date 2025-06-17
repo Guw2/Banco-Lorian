@@ -26,9 +26,11 @@ import com.lorian.lorianBank.transacao.DTOs.post.TransferenciaPostDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/myuser")
+@Tag(name = "Controller de Informações do Usuário Autenticado", description = "Operações Relacionadas ao Usuário (USER)")
 public class UserInfoController {
 
 	private final UserOpsService service;
@@ -87,6 +89,17 @@ public class UserInfoController {
 	@PostMapping("/cartoes/emitir") // Emite um novo cartão e associa automaticamente ao usuário autenticado
 	public ResponseEntity<CartaoGetDTO> emitirCartao(@RequestBody CartaoUserPostDTO dto){
 		return new ResponseEntity<CartaoGetDTO>(service.emitirCartao(dto), HttpStatus.CREATED);
+	}
+	
+	@Operation(summary = "Ativa um cartão")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Cartão ativado com sucesso!"),
+			@ApiResponse(responseCode = "404", description = "O ID não foi encontrado"),
+			@ApiResponse(responseCode = "400", description = "O cartão não pertence ao usuário autenticado")
+	})
+	@GetMapping("/cartoes/ativar/{id}")
+	public String ativarCartao(@PathVariable Long id) {
+		return service.ativarCartao(id);
 	}
 	
 	@Operation(summary = "Transferir dinheiro para outra conta")
