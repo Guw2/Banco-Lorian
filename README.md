@@ -99,8 +99,6 @@ Content-Type: application/json
 
 ## 🔑———— Tabelas de Endpoints Que Exigem Autenticação ———— 🔑
 
-## 📡 Endpoints da API
-
 ### 👤 Usuário Autenticado (USER)
 | Método | Endpoint                              | Descrição                                  |
 |--------|---------------------------------------|--------------------------------------------|
