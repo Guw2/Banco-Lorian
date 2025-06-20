@@ -10,6 +10,24 @@ services:
       - "3306:3306"
    volumes:
       - lorian_bank_data:/var/lib/mysql
+   healthcheck:
+        test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+        interval: 5s
+        timeout: 2s
+        retries: 10
+
+  lorianbank:
+      build: .
+      ports:
+        - "8080:8080"
+      depends_on:
+        mysql:
+          condition: service_healthy
+      environment:
+        SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/lorian_bank?useTimezone=True&serverTimezone=UTC
+        SPRING_DATASOURCE_USERNAME: root
+        SPRING_DATASOURCE_PASSWORD: root
+      restart: on-failure
 
 volumes:
    lorian_bank_data:
