@@ -99,43 +99,60 @@ Content-Type: application/json
 
 ## 🔑———— Tabelas de Endpoints Que Exigem Autenticação ———— 🔑
 
+## 📡 Endpoints da API
+
 ### 👤 Usuário Autenticado (USER)
-| Método | Endpoint | Descrição | |--------|---------------------------------------|--------------------------------------------| | GET | `/myuser/cliente` | Buscar informações do cliente |
-| GET | `/myuser/contas` | Listar contas do usuário |
-| POST | `/myuser/contas/abrir` | Abrir nova conta |
-| GET | `/myuser/cartoes` | Listar cartões do usuário |
-| GET | `/myuser/cartoes/{numero_da_conta}` | Buscar cartões por conta |
-| POST | `/myuser/cartoes/emitir` | Emitir novo cartão |
-| POST | `/myuser/transacoes/transferir` | Transferência entre contas |
-| POST | `/myuser/transacoes/transferir-cartao`| Transferência via cartão |
-| POST | `/myuser/transacoes/sacar` | Realizar saque |
-| POST | `/myuser/transacoes/depositar` | Realizar depósito |
-| POST | `/myuser/transacoes/pagar-fatura` | Pagar fatura do cartão | 
+| Método | Endpoint                              | Descrição                                  |
+|--------|---------------------------------------|--------------------------------------------|
+| GET    | `/myuser/cliente`                     | Buscar informações do cliente              |
+| GET    | `/myuser/contas`                      | Listar contas do usuário                   |
+| POST   | `/myuser/contas/abrir`                | Abrir nova conta                           |
+| GET    | `/myuser/cartoes`                     | Listar cartões do usuário                  |
+| GET    | `/myuser/cartoes/{numero_da_conta}`   | Buscar cartões por conta                   |
+| POST   | `/myuser/cartoes/emitir`              | Emitir novo cartão                         |
+| POST   | `/myuser/transacoes/transferir`       | Transferência entre contas                 |
+| POST   | `/myuser/transacoes/transferir-cartao`| Transferência via cartão                   |
+| POST   | `/myuser/transacoes/sacar`            | Realizar saque                             |
+| POST   | `/myuser/transacoes/depositar`        | Realizar depósito                          |
+| POST   | `/myuser/transacoes/pagar-fatura`     | Pagar fatura do cartão                     |
+
 ### 🛠️ Administração (ADMIN)
+
 #### Clientes
-| Método | Endpoint | Descrição | |--------|---------------------------|--------------------------------| | GET | `/ops/clientes` | Listar todos os clientes |
-| POST | `/ops/clientes` | Cadastrar novo cliente |
-| GET | `/ops/clientes/{email}` | Buscar cliente por e-mail |
-| DELETE | `/ops/clientes/{email}` | Remover cliente | 
+| Método | Endpoint                  | Descrição                      |
+|--------|---------------------------|--------------------------------|
+| GET    | `/ops/clientes`           | Listar todos os clientes       |
+| POST   | `/ops/clientes`           | Cadastrar novo cliente         |
+| GET    | `/ops/clientes/{email}`   | Buscar cliente por e-mail      |
+| DELETE | `/ops/clientes/{email}`   | Remover cliente                |
+
 #### Contas
-| Método | Endpoint | Descrição | |--------|---------------------------|--------------------------------| | GET | `/ops/contas` | Listar todas as contas |
-| POST | `/ops/contas` | Criar nova conta |
-| GET | `/ops/contas/{numero}` | Buscar conta por número |
-| DELETE | `/ops/contas/{numero}` | Remover conta | 
+| Método | Endpoint                  | Descrição                      |
+|--------|---------------------------|--------------------------------|
+| GET    | `/ops/contas`             | Listar todas as contas         |
+| POST   | `/ops/contas`             | Criar nova conta               |
+| GET    | `/ops/contas/{numero}`    | Buscar conta por número        |
+| DELETE | `/ops/contas/{numero}`    | Remover conta                  |
+
 #### Cartões
-| Método | Endpoint | Descrição | |--------|---------------------------|--------------------------------| | GET | `/ops/cartoes` | Listar todos os cartões |
-| POST | `/ops/cartoes` | Emitir novo cartão |
-| GET | `/ops/cartoes/{numero}` | Buscar cartão por número |
-| DELETE | `/ops/cartoes/{numero}` | Cancelar cartão |
-| GET | `/ops/cartoes/ativar/{id}`| Ativar cartão | 
+| Método | Endpoint                  | Descrição                      |
+|--------|---------------------------|--------------------------------|
+| GET    | `/ops/cartoes`            | Listar todos os cartões        |
+| POST   | `/ops/cartoes`            | Emitir novo cartão             |
+| GET    | `/ops/cartoes/{numero}`   | Buscar cartão por número       |
+| DELETE | `/ops/cartoes/{numero}`   | Cancelar cartão                |
+| GET    | `/ops/cartoes/ativar/{id}`| Ativar cartão                  |
+
 #### Transações
-| Método | Endpoint | Descrição | |--------|-----------------------------------|------------------------------------| | GET | `/ops/transacoes` | Listar todas as transações |
-| GET | `/ops/transacoes/{id}` | Buscar transação por ID |
-| POST | `/ops/transacoes/transferir` | Realizar transferência |
-| POST | `/ops/transacoes/sacar` | Realizar saque |
-| POST | `/ops/transacoes/depositar` | Realizar depósito |
-| POST | `/ops/transacoes/credito` | Transferência com cartão |
-| POST | `/ops/transacoes/credito/fatura` | Pagamento de fatura |
+| Método | Endpoint                          | Descrição                          |
+|--------|-----------------------------------|------------------------------------|
+| GET    | `/ops/transacoes`                 | Listar todas as transações         |
+| GET    | `/ops/transacoes/{id}`            | Buscar transação por ID            |
+| POST   | `/ops/transacoes/transferir`      | Realizar transferência             |
+| POST   | `/ops/transacoes/sacar`           | Realizar saque                     |
+| POST   | `/ops/transacoes/depositar`       | Realizar depósito                  |
+| POST   | `/ops/transacoes/credito`         | Transferência com cartão           |
+| POST   | `/ops/transacoes/credito/fatura`  | Pagamento de fatura                |
 
 > **📚 Documentação Completa**  
 > Para visualizar todos os 30+ endpoints com mais detalhes de request/response, acesse:  
