@@ -3,6 +3,7 @@
 [![Java](https://img.shields.io/badge/Java-21-%23ED8B00?logo=openjdk)](https://openjdk.org/)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5-%236DB33F?logo=spring)](https://spring.io/)
 [![MySQL](https://img.shields.io/badge/MySQL-8-%234479A1?logo=mysql)](https://www.mysql.com/)
+![Docker](https://img.shields.io/badge/Docker-✓-lightblue)
 
 > Sistema bancário robusto com autenticação JWT, controle de perfis e operações financeiras completas
 
